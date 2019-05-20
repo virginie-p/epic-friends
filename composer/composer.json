@@ -1,0 +1,21 @@
+{
+    "name": "virginie-pereira/epic-friends",
+    "description": "Geek Social Network",
+    "authors": [
+        {
+            "name": "Virginie PEREIRA",
+            "email": "pereira.virgini@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^2.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\Controller\\": "../controller",
+            "App\\Model\\": "../model",
+            "App\\Router\\" : "../Router",
+            "App\\Entity\\" : "../Entity"
+        }
+    }
+}
