@@ -1,0 +1,109 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <a class="navbar-brand" href="#">
+    <figure>
+      <img src="{{ BASE_URL }}public/images/logo.png" alt="">
+      <figcaption>Epic Friends</figcaption>
+    </figure>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav m-auto">
+      <li class="nav-item">
+        <a class="nav-link mr-4" href="#concept">Concept</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link ml-4" href="#testimony">Témoignages</a>
+      </li>
+    </ul>
+    <button type="button" class="btn btn-primary mx-2" data-toggle="modal" data-target="#subscribeForm">S'inscrire</button>
+    <button type="button" class="btn btn-primary mx-2"  data-toggle="modal" data-target="#connexionForm">Se connecter</button>
+  </div>
+</nav>
+
+<!-- Modal Subscription-->
+<div class="modal fade" id="subscribeForm" tabindex="-1" role="dialog" aria-labelledby="subscribeFormTitle">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="subscribeFormTitle">Formulaire d'inscription</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <div class="modal-body">
+            <div class="messages-subscription"></div>
+            <form action="index.php?action=subscribe" method="post" id="subscribe-form">
+                <div class="form-group">
+                    <label for="username">Pseudo</label>
+                    <input type="text" class="form-control" name="subscribe-username" value="">
+                    <small id="passwordHelp" class="form-text text-muted">Votre login doit être composé de 6 caractères minimum.</small>
+                </div>
+                <div class="form-group">
+                    <label for="subscribe-password">Mot de passe</label>
+                    <input type="password" class="form-control" name="subscribe-password" aria-describedby="passwordHelp" >
+                    <small id="passwordHelp" class="form-text text-muted">Votre mot de passe doit être composé de 8 caractères dont à minima un chiffre et une lettre majuscule.</small>
+                </div>
+                <div class="form-group">
+                    <label for="password-confirmation">Confirmer votre mot de passe</label>
+                    <input type="password" class="form-control" name="password-confirmation">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" name="email" value="">
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Nom</label>
+                    <input type="text" class="form-control" name="lastname" value="">
+                </div>
+                <div class="form-group">
+                    <label for="firstname">Prénom</label>
+                    <input type="text" class="form-control" name="firstname" value="">
+                </div>
+                <div class="form-group">
+                    <label for="profile-picture">Sélectionner votre photo de profil</label>
+                    <input type="file" class="form-control-file" name="profile-picture" aria-describedby="select-profile-picture-help">
+                    <small id="select-profile-picture-help" class="form-text text-muted">Votre photo de profil ne doit pas dépasser 2 Mo et doit respecter le ratio 150*150px.</small>
+                </div>
+            </form>
+        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="submit" id="subscribe-button" class="btn btn-primary" form="subscribe-form">S'inscrire</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Connexion-->
+<div class="modal fade" id="connexionForm" tabindex="-1" role="dialog" aria-labelledby="connexionFormTitle">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="connexionFormTitle">Formulaire de connexion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <div class="modal-body">
+        <div class="messages"></div>
+            <form action="index.php?action=connection" method="post" id="connexion-form">
+                <div class="form-group">
+                    <label for="username">Pseudo</label>
+                    <input type="text" class="form-control" name="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+            </form>
+        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="submit" class="btn btn-primary" form="connexion-form" id="connect-button">Se connecter</button>
+            </div>
+        </div>
+    </div>
+</div>

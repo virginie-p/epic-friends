@@ -1,0 +1,23 @@
+.navbar-brand {
+  font-family: Gabriela, serif;
+  font-size: 20px;
+  color: $secondary;
+  img {
+    height: 35px;
+    width: auto;
+  }
+  text-align: center;
+
+  figure {
+    margin: 0;
+  }
+}
+
+button.btn-primary {
+  background-color: $secondary;
+  border-color: $secondary;
+}
+
+.nav-item {
+  font-size: 1.25rem;
+}

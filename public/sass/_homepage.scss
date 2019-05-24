@@ -1,0 +1,53 @@
+h2 {
+    font-family: $Gabriela;
+}
+
+h3 {
+    font-size: 1rem;
+    font-style: italic;
+}
+
+header {
+    background: center no-repeat url('../images/header-bg.jpg') ;
+    background-size: cover;
+    height: 500px;
+    color : white;
+    text-align: center;
+    margin-top: 88px;
+    h3 {
+        font-size: 1.4rem;
+    }
+    
+}
+
+footer {
+    background-color: $primary;
+}
+
+section{
+    i.fa-circle {
+    color: $secondary;
+    }
+}
+
+footer{
+    i.fa-circle {
+    color: $tertiary;
+    }
+    a:hover .fa-circle {
+    color: pink;
+    }
+}
+
+.btn {
+    border-radius: 25px;
+}
+
+footer {
+    .nav-link{
+        color: $tertiary;
+    }
+    .nav-link:hover {
+        color: pink;
+    }
+}

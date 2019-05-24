@@ -1,0 +1,55 @@
+h2 {
+  font-family: Gabriela, serif; }
+
+h3 {
+  font-size: 1rem;
+  font-style: italic; }
+
+header {
+  background: center no-repeat url("../images/header-bg.jpg");
+  background-size: cover;
+  height: 500px;
+  color: white;
+  text-align: center;
+  margin-top: 88px; }
+  header h3 {
+    font-size: 1.4rem; }
+
+footer {
+  background-color: #343638; }
+
+section i.fa-circle {
+  color: #9b59b6; }
+
+footer i.fa-circle {
+  color: #f999c8; }
+footer a:hover .fa-circle {
+  color: pink; }
+
+.btn {
+  border-radius: 25px; }
+
+footer .nav-link {
+  color: #f999c8; }
+footer .nav-link:hover {
+  color: pink; }
+
+.navbar-brand {
+  font-family: Gabriela, serif;
+  font-size: 20px;
+  color: #9b59b6;
+  text-align: center; }
+  .navbar-brand img {
+    height: 35px;
+    width: auto; }
+  .navbar-brand figure {
+    margin: 0; }
+
+button.btn-primary {
+  background-color: #9b59b6;
+  border-color: #9b59b6; }
+
+.nav-item {
+  font-size: 1.25rem; }
+
+/*# sourceMappingURL=main.css.map */

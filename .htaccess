@@ -1,4 +1,9 @@
-RewriteEngine on
+# REDIRECTION TO HTTPS
+# https://wiki.apache.org/httpd/RewriteHTTPToHTTPS
+RewriteEngine On
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^(.*)$ https://%{SERVER_NAME}/$1 [R,L]
 
+# REWRITING URL
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
