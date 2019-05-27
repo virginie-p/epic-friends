@@ -52,4 +52,7 @@ button.btn-primary {
 .nav-item {
   font-size: 1.25rem; }
 
+.modal-content .alert {
+  padding: .25rem .5rem; }
+
 /*# sourceMappingURL=main.css.map */

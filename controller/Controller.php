@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Image;
 require(__DIR__.'/../config.php');
 
 class Controller {
@@ -33,8 +34,8 @@ class Controller {
             $upload_result = null;
         }
 
-        if (is_null($upload_errors) && $upload_results['upload_status'] == true) {
-            $image_name = $upload_results['image_name'];
+        if (is_null($upload_errors) && $upload_result['upload_status'] == true) {
+            $image_name = $upload_result['image_name'];
             
             return $upload_result = [
                 "status" => "success",

@@ -1,0 +1,76 @@
+<?php 
+
+namespace App\Model;
+use App\Entity\User;
+use \PDO;
+
+class UserManager extends Manager {
+
+    public function addMember(User $user) {
+        $db = $this->MySQLConnect();
+        $req = $db->prepare('INSERT INTO project_5_users_parameters(
+                                            user_type_id,
+                                            username,
+                                            password,
+                                            email)
+                            VALUES (:user_type_id,
+                                    :username, 
+                                    :password,
+                                    :email)'
+                            );
+
+        $affected_lines = $req->execute([
+            'user_type_id' => $user->userType(),
+            'username' => $user->username(),
+            'password' => $user->password(),
+            'email' => $user->email()
+        ]);
+
+        if (!$affected_lines) {
+            return false;
+        }
+        else {
+            $last_id = $db->lastInsertId();
+            
+            $req = $db->prepare('INSERT INTO project_5_users_profiles(
+                                                user_id,
+                                                birthdate,
+                                                profile_picture)
+                                VALUES (:user_id,
+                                        :birthdate,
+                                        :profile_picture)'
+                                );
+            $affected_lines = $req->execute([
+                'user_id' => $last_id,
+                'birthdate' => $user->birthdate(),
+                'profile_picture'=> $user->profilePicture()
+            ]);
+        }
+        return $affected_lines;
+    }
+
+    public function getMembers() {
+        $db = $this->MySQLConnect();
+        $req = $db->query('SELECT   users_profiles.id,
+                                    user_type_id,
+                                    username,
+                                    password,
+                                    firstname,
+                                    lastname,
+                                    email,
+                                    profile_picture,
+                                    description, 
+                                    DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%i\') AS creation_date
+                            FROM project_5_users_parameters AS users_parameters
+                            INNER JOIN project_5_users_profiles AS users_profiles
+                            ON users_parameters.id = users_profiles.user_id
+                            WHERE user_type_id = 5');
+
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'App\Entity\User');
+
+        $members = $req->fetchAll();
+
+        return $members;
+    }
+
+}

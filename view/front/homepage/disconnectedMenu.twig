@@ -35,32 +35,28 @@
             </div>
         <div class="modal-body">
             <div class="messages-subscription"></div>
-            <form action="index.php?action=subscribe" method="post" id="subscribe-form">
-                <div class="form-group">
-                    <label for="username">Pseudo</label>
-                    <input type="text" class="form-control" name="subscribe-username" value="">
-                    <small id="passwordHelp" class="form-text text-muted">Votre login doit être composé de 6 caractères minimum.</small>
-                </div>
-                <div class="form-group">
-                    <label for="subscribe-password">Mot de passe</label>
-                    <input type="password" class="form-control" name="subscribe-password" aria-describedby="passwordHelp" >
-                    <small id="passwordHelp" class="form-text text-muted">Votre mot de passe doit être composé de 8 caractères dont à minima un chiffre et une lettre majuscule.</small>
-                </div>
-                <div class="form-group">
-                    <label for="password-confirmation">Confirmer votre mot de passe</label>
-                    <input type="password" class="form-control" name="password-confirmation">
-                </div>
+            <form action="{{ BASE_URL }}subscribe" method="post" id="subscribe-form">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" name="email" value="">
                 </div>
                 <div class="form-group">
-                    <label for="lastname">Nom</label>
-                    <input type="text" class="form-control" name="lastname" value="">
+                    <label for="birthdate">Date de naissance</label>
+                    <input type="text" class="form-control datetimepicker-input" name="birthdate" id="datetimepicker5" data-toggle="datetimepicker" data-target="#datetimepicker5"/>
                 </div>
                 <div class="form-group">
-                    <label for="firstname">Prénom</label>
-                    <input type="text" class="form-control" name="firstname" value="">
+                    <label for="username">Pseudo</label>
+                    <input type="text" class="form-control" name="subscribe-username" aria-describedby="username-help" value="">
+                    <small id="username-help" class="form-text text-muted">Votre login doit être composé de 6 caractères minimum.</small>
+                </div>
+                <div class="form-group">
+                    <label for="subscribe-password">Mot de passe</label>
+                    <input type="password" class="form-control" name="subscribe-password" aria-describedby="password-help" >
+                    <small id="password-help" class="form-text text-muted">Votre mot de passe doit être composé de 8 caractères dont à minima un chiffre et une lettre majuscule.</small>
+                </div>
+                <div class="form-group">
+                    <label for="password-confirmation">Confirmer votre mot de passe</label>
+                    <input type="password" class="form-control" name="password-confirmation">
                 </div>
                 <div class="form-group">
                     <label for="profile-picture">Sélectionner votre photo de profil</label>
