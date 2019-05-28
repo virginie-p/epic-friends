@@ -1,0 +1,39 @@
+{% extends "template.twig" %}
+
+{% block meta %}
+    
+{% endblock meta %}
+
+{% block title %}
+<title>Bienvenue sur Epic Friends</title>
+{% endblock title %}
+
+{% block links %}
+{% endblock links %}
+
+{% block menu %}{% include "/front/connectedMenu.twig" %}{% endblock %}
+
+{% block content %}
+<section class="" id="new-members">
+        <div class="container-fluid py-5 text-center">
+            <div class="row">
+              <h2 class="col-12 mb-5">Les derniers inscrits</h2>
+            </div>
+            <div class="row justify-content-center ">
+                {% for new_user in new_users %}
+                    {% if new_user.id() != user.id() %}
+                        <div class="card col-lg-3 p-0 mx-4 mb-4" >
+                            <img src="{{ BASE_URL }}public/images/profiles-pictures/{{ new_user.profilePicture() }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">{{ new_user.username() }}</h5>
+                              <p class="card-text">{{ new_user.getAge() }} ans</p>
+                              <a class="btn btn-primary" href="{{ BASE_URL }}member/{{ new_user.id() }}" role="button">Voir le profil</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+              
+            </div>
+    </section>
+    
+{% endblock %}

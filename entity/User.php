@@ -5,7 +5,7 @@ namespace App\Entity;
 
 class User extends Entity {
     protected   $id,
-                $user_type,
+                $user_type_id,
                 $username,
                 $password,
                 $email,
@@ -26,8 +26,8 @@ class User extends Entity {
         return $this->id;
     }
 
-    public function userType() {
-        return $this->user_type;
+    public function userTypeId() {
+        return $this->user_type_id;
     }
 
     public function username() {
@@ -91,8 +91,8 @@ class User extends Entity {
         $this->id = (int) $id;
     }
 
-    public function setUserType($user_type) {
-        $this->user_type = $user_type;
+    public function setUserTypeId($user_type_id) {
+        $this->user_type_id = $user_type_id;
     }
 
     public function setUsername($username) {
@@ -149,5 +149,18 @@ class User extends Entity {
 
     public function setCreationDate($creation_date) {
         $this->creation_date = $creation_date;
+    }
+
+    /**METHODS */
+
+    public function getAge() {
+        $birthdate = new \Datetime($this->birthdate());
+        $birthdate->format('Y-m-d');
+
+        $actual_date = new \Datetime();
+        $datediff = $actual_date->diff($birthdate);
+        $age = $datediff->y;
+
+        return $age;
     }
 }

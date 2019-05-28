@@ -1,7 +1,7 @@
 .navbar-brand {
   font-family: Gabriela, serif;
   font-size: 20px;
-  color: $secondary;
+  color: $purple;
   img {
     height: 35px;
     width: auto;
@@ -13,11 +13,52 @@
   }
 }
 
-button.btn-primary {
-  background-color: $secondary;
-  border-color: $secondary;
+button.btn-primary, a.btn-primary {
+  background-color: $purple;
+  border-color: $dark-purple;
+
+  &:hover {
+    background-color: rgb(136, 85, 156);
+    border-color: $purple;
+  }
+}
+
+button.btn-secondary, a.btn-secondary {
+  width: 55px;
+  height: 55px;
+  padding:0;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+
+  background-color: $blue;
+  border-color: $blue;
+
+  &:hover {
+    background-color: $light-blue;
+    background-color:  $light-blue;
+  }
 }
 
 .nav-item {
-  font-size: 1.25rem;
+  font-size: 1rem;
+}
+
+.profile-picture {
+  height: 60px;
+  border-radius: 3px;
+}
+
+#hello-text {
+  color: $dark;
+}
+
+.navbar-nav .nav-link {
+  color: $purple !important;
+  
+  &:hover {
+    color: $dark-purple !important;
+  }
 }

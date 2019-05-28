@@ -114,4 +114,63 @@ class UserController extends Controller {
         
     }
 
+    public function connectUser() {
+        $user_manager = new UserManager();
+        $user = $user_manager->getUser($_POST['username']);
+
+        if ($user != false) {
+            if (!password_verify($_POST['password'], $user->password())){
+                echo json_encode([
+                    'status' => 'error'
+                ]);
+            }
+            else {
+                $_SESSION['user'] = $user;
+        
+                echo json_encode([
+                    'status' => 'success'
+                ]);
+            }
+        } else {
+            echo json_encode([
+                'status' => 'error'
+            ]);
+        }
+
+    }
+
+    public function disconnectUser() {
+        $_SESSION = [];
+        session_destroy();
+
+        header('Location: ' . BASE_URL);
+        exit;
+    }
+
+    public function getNewMembers() {
+        $user_manager = new UserManager();
+        if ($_SESSION['user']->county() == NULL){
+            $new_users = $user_manager->getNewMembers($_SESSION['user']);
+        }
+        else {
+        $new_users = $user_manager->getNewCountyMembers($_SESSION['user']);
+        }
+        
+        return $new_users;
+    }
+
+    public function displayProfile($id) {
+        if(isset($_SESSION['user'])) {
+            $user_manager = new UserManager();
+            $member = $user_manager->getMember($id);
+
+            echo $this->twig->render('front/memberProfile.twig', ['member' => $member]);
+        }
+        else {
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig');
+        }
+
+        
+    }
+
 }

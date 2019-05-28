@@ -1,0 +1,23 @@
+{% extends "template.twig" %}
+
+{% block meta %}
+    
+{% endblock meta %}
+
+{% block title %}
+<title>Bienvenue sur Epic Friends</title>
+{% endblock title %}
+
+{% block links %}
+{% endblock links %}
+
+{% block menu %}{% include "/front/connectedMenu.twig" %}{% endblock %}
+
+{% block content %}
+<section class="" id="new-members">
+    <div class="container-fluid py-5 text-center">
+        <div class="row">
+            <h2 class="col-12 mb-5">{{ member.username() }}</h2>
+        </div>
+</section>
+{% endblock %}

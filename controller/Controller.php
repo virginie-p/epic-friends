@@ -13,6 +13,10 @@ class Controller {
 
         $twig->addGlobal('BASE_URL', BASE_URL.'/');
 
+        if(isset($_SESSION['user'])) {
+            $twig->addGlobal('user', $_SESSION['user']);
+        }
+
         $this->twig = $twig;
     }
 
