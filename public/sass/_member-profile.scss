@@ -1,0 +1,130 @@
+.jumbotron {
+    background-color: rgba(31, 72, 110, 0.541);
+    color: white;
+    height: 250px;
+
+    h1 {
+        position: absolute;
+        bottom: 10px;
+        left: 170px;
+        color: $light;
+    }
+
+    .lead {
+        font-size: 2rem;
+    }
+}
+#profile-jumbotron {
+    position: relative;
+    h1 {
+        font-family: $Gabriela;
+    }
+}
+#profile-picture {
+    position: absolute;
+    bottom: -25px;
+    left: 10px;
+
+
+    img {
+        width: 150px;
+        height: auto;
+        border: solid $light 3px;
+        border-radius: 8px;
+    }
+}
+
+#member-basics, #member-description {
+    .details-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+    h3 {
+        font-style: normal;
+        font-size: 1.25rem;
+        font-family: $Gabriela;
+        margin-bottom: 0;
+        padding: 10px;
+    }
+    h5 {
+        font-size: 1.05rem;
+        margin-bottom: 0;
+    }
+    p {
+        margin: 0;
+    }
+}
+
+.divider {
+	margin-top: 90px;
+    height: 1px;
+    background-image: linear-gradient(to right, transparent, $purple, transparent);
+}
+
+/* Button 2 */
+
+
+#user-buttons {
+    position: absolute;
+    top: 0;
+    right : 0;
+
+    button, a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn {
+        cursor: pointer;
+        color: #fff;
+        padding: 5px 10px;
+        margin: 10px 7px;
+        border-radius: 40px;
+        letter-spacing: 1px;
+        outline: none;
+        font-size: .85rem;
+        font-weight: 500;
+        position: relative;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+    
+    .btn-1 {
+        background: $light-purple;
+        box-shadow: 0 5px $purple;
+        &:hover {
+            box-shadow: 0 3px $purple;
+            color: $light;
+            top: 2px;
+        }
+        &:active {
+            box-shadow: 0 0 $purple;
+            top: 6px;
+        }
+    }
+    
+    .btn-2 {
+        background:  rgb(255, 120, 41);
+        box-shadow: 0 5px rgb(243, 99, 55);
+        &:hover {
+            box-shadow: 0 3px rgb(243, 99, 55);
+            color: $light;
+            top: 2px;
+        }
+        &:active {
+            box-shadow: 0 0 rgb(243, 99, 55);
+            top: 6px;
+        }
+    }
+}
+
+.modal-footer {
+    .btn.btn-success {
+        background-color: $blue !important;
+        border-color: $blue !important;
+    }
+}

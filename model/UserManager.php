@@ -182,15 +182,18 @@ class UserManager extends Manager {
                                     gender,
                                     county,
                                     favorite_citation,
+                                    GROUP_CONCAT(interest_name SEPARATOR ", ") AS interests,
                                     profile_picture,
                                     profile_banner,
                                     description,
                                     identified_as,
-                                    DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%i\') AS creation_date
+                                    DATE_FORMAT(users_parameters.creation_date, "%d/%m/%Y à %Hh%i") AS creation_date
                             FROM project_5_users_parameters AS users_parameters
-                            INNER JOIN project_5_users_profiles AS users_profiles
-                            ON users_parameters.id = users_profiles.user_id
-                            WHERE users_parameters.id = ?');
+                            INNER JOIN project_5_users_profiles AS users_profiles ON users_parameters.id = users_profiles.user_id
+                            INNER JOIN project_5_users_interests AS users_interests ON users_parameters.id = users_interests.user_id
+                            INNER JOIN project_5_interests AS interests ON users_interests.interest_id = interests.id
+                            WHERE users_parameters.id = ?
+                            GROUP BY (users_parameters.id)');
         $req->execute(array($id));
 
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'App\Entity\User');
@@ -199,5 +202,6 @@ class UserManager extends Manager {
 
         return $user;
     }
+
 
 }

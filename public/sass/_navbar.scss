@@ -23,22 +23,24 @@ button.btn-primary, a.btn-primary {
   }
 }
 
-button.btn-secondary, a.btn-secondary {
-  width: 55px;
-  height: 55px;
-  padding:0;
-  border-radius: 50%;
+footer {
+  button.btn-secondary, a.btn-secondary {
+    width: 55px;
+    height: 55px;
+    padding:0;
+    border-radius: 50%;
 
-  display: flex;
-  align-items: center;
-  justify-content: center; 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
 
-  background-color: $blue;
-  border-color: $blue;
+    background-color: $blue;
+    border-color: $blue;
 
-  &:hover {
-    background-color: $light-blue;
-    background-color:  $light-blue;
+    &:hover {
+      background-color: $light-blue;
+      background-color:  $light-blue;
+    }
   }
 }
 

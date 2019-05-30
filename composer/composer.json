@@ -8,7 +8,9 @@
         }
     ],
     "require": {
-        "twig/twig": "^2.10"
+        "twig/twig": "^2.10",
+        "emojione/emojione": "^4.5",
+        "erusev/parsedown": "^1.7"
     },
     "autoload": {
         "psr-4": {

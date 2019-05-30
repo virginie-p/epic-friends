@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Entity;
+use Emojione\Client;
+use Emojione\Ruleset;
 
 
 class User extends Entity {
@@ -15,6 +17,7 @@ class User extends Entity {
                 $gender,
                 $county,
                 $favorite_citation,
+                $interests,
                 $description,
                 $profile_picture,
                 $profile_banner,
@@ -66,8 +69,14 @@ class User extends Entity {
         return $this->favorite_citation;
     }
 
+    public function interests() {
+        return $this->interests;
+    }
+
     public function description() {
-        return $this->description;
+        $client = new Client(new Ruleset());
+        $emoji_description = $client->toImage($this->description);
+        return $emoji_description;
     }
 
     public function profilePicture() {
@@ -131,8 +140,14 @@ class User extends Entity {
         $this->favorite_citation = $favorite_citation;
     }
 
+    public function setInterests($interests) {
+        $this->interests = $interests;
+    }
+
     public function setDescription($description) {
-        $this->setDescription = $description;
+        $parsedown = new \Parsedown();
+        $Parsedown->setSafeMode(true);
+        $this->setDescription = $parsedown->text($description);
     }
 
     public function setProfilePicture($profile_picture) {
