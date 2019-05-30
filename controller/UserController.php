@@ -173,4 +173,17 @@ class UserController extends Controller {
         
     }
 
+    public function displayUserProfile() {
+        if(isset($_SESSION['user'])) {
+            $user_manager = new UserManager();
+            $user = $user_manager->getMember($_SESSION['user']->id());
+
+            echo $this->twig->render('front/userProfile.twig', ['user' => $user]);
+   
+        }
+        else {
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig');
+        }
+    }
+
 }
