@@ -39,6 +39,11 @@ $router->addRoute('GET', '/my-profile', function(){
     $user_controller->displayUserProfile();
 });
 
+$router->addRoute('GET|POST', '/modify-profile/:id', function($id) {
+    $user_controller = new UserController();
+    $user_controller->modifyProfile($id);
+});
+
 $router->addRoute('GET', '/test', function(){echo 'Page de Test';});
 
 $router->run();

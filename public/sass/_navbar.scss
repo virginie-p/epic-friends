@@ -15,7 +15,7 @@
 
 button.btn-primary, a.btn-primary {
   background-color: $purple;
-  border-color: $dark-purple;
+  border-color: $purple;
 
   &:hover {
     background-color: rgb(136, 85, 156);
@@ -24,6 +24,7 @@ button.btn-primary, a.btn-primary {
 }
 
 footer {
+  text-align: center;
   button.btn-secondary, a.btn-secondary {
     width: 55px;
     height: 55px;

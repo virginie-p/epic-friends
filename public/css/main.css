@@ -49,24 +49,26 @@ footer .btn-secondary {
 
 button.btn-primary, a.btn-primary {
   background-color: #6C3B80;
-  border-color: #2B193D; }
+  border-color: #6C3B80; }
   button.btn-primary:hover, a.btn-primary:hover {
     background-color: #88559c;
     border-color: #6C3B80; }
 
-footer button.btn-secondary, footer a.btn-secondary {
-  width: 55px;
-  height: 55px;
-  padding: 0;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #50B9CA;
-  border-color: #50B9CA; }
-  footer button.btn-secondary:hover, footer a.btn-secondary:hover {
-    background-color: #82c7d1;
-    background-color: #82c7d1; }
+footer {
+  text-align: center; }
+  footer button.btn-secondary, footer a.btn-secondary {
+    width: 55px;
+    height: 55px;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #50B9CA;
+    border-color: #50B9CA; }
+    footer button.btn-secondary:hover, footer a.btn-secondary:hover {
+      background-color: #82c7d1;
+      background-color: #82c7d1; }
 
 .nav-item {
   font-size: 1rem; }
@@ -185,5 +187,63 @@ body {
 .modal-footer .btn.btn-success {
   background-color: #50B9CA !important;
   border-color: #50B9CA !important; }
+
+#modify-profile {
+  position: relative; }
+  #modify-profile #datetimepicker5 {
+    width: 150px; }
+
+form {
+  position: relative; }
+  form label {
+    margin-bottom: 0; }
+
+#suggestions-list {
+  font-size: .875rem;
+  position: absolute;
+  max-height: 80px;
+  overflow-y: auto;
+  top: 1px;
+  color: #293132;
+  border: 1px solid #d0d0d0;
+  border-radius: 0 0 3px 3px;
+  background-color: white;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  z-index: 2000;
+  cursor: mouse; }
+  #suggestions-list div:hover {
+    background-color: #F2F4F3; }
+
+.selectize-control.multi .selectize-input {
+  -webkit-box-shadow: none;
+  box-shadow: none; }
+.selectize-control.multi .selectize-input > div {
+  background: #50B9CA !important; }
+.selectize-control.multi .selectize-dropdown {
+  color: #293132; }
+
+#modify-profile input, #modify-profile textarea, #modify-profile .option, #modify-profile .item {
+  font-size: .875rem;
+  color: #293132; }
+  #modify-profile input::placeholder, #modify-profile textarea::placeholder, #modify-profile .option::placeholder, #modify-profile .item::placeholder {
+    color: #293132; }
+#modify-profile .custom-select, #modify-profile .form-control {
+  width: auto; }
+#modify-profile .custom-file .custom-file-label {
+  overflow: hidden;
+  text-align: left;
+  font-size: .875rem; }
+  #modify-profile .custom-file .custom-file-label::after {
+    content: "Parcourir"; }
+  @media (min-width: 576px) {
+    #modify-profile .custom-file .custom-file-label {
+      justify-content: flex-start; } }
+@media all and (min-width: 768px) {
+  #modify-profile .custom-file {
+    width: 50%; } }
+@media (max-width: 576px) {
+  #modify-profile #identified-as {
+    width: 100%; } }
 
 /*# sourceMappingURL=main.css.map */

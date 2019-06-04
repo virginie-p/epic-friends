@@ -1,0 +1,86 @@
+#modify-profile {
+    position: relative;
+
+    #datetimepicker5 {
+        width: 150px;
+    }
+}
+
+form {
+    position: relative;
+    label {
+        margin-bottom: 0;
+    }
+}
+
+
+#suggestions-list {
+    font-size: .875rem;
+    position: absolute;
+    max-height: 80px;
+    overflow-y: auto;
+    top: 1px;
+    color: $dark;
+    border: 1px solid #d0d0d0;
+    border-radius: 0 0 3px 3px;
+    background-color: white;
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    z-index: 2000;
+    cursor: mouse;
+    div:hover {
+        background-color: $light;
+    }
+}
+
+.selectize-control.multi { 
+    
+    .selectize-input {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        
+    }
+    .selectize-input > div {
+    background: $blue !important;
+    }
+    .selectize-dropdown {
+        color: $dark;
+    }
+}
+
+
+#modify-profile {
+    input, textarea, .option, .item {
+        font-size: .875rem;
+        color: $dark;
+        &::placeholder {
+            color: $dark;
+        }
+    }
+    .custom-select, .form-control {
+        width: auto;
+    }
+    .custom-file {
+        .custom-file-label {
+            overflow: hidden;
+            text-align: left;
+            font-size: .875rem;
+            &::after {
+                content: "Parcourir";
+            }
+            @media (min-width: 576px) {
+                justify-content: flex-start;
+            }
+        }
+        @media all and (min-width:768px){
+            width: 50%;
+        }
+    }
+    
+    #identified-as {
+        @media (max-width: 576px) {
+            width: 100%;
+        }
+    }
+    
+}

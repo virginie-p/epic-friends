@@ -1,8 +1,4 @@
 $(function() {
-    $('#datetimepicker5').datetimepicker({
-        format: 'L',
-        locale: 'fr'
-    });
 
     $("#subscribe-button").click(function(e){
         e.preventDefault();

@@ -17,7 +17,7 @@ class User extends Entity {
                 $gender,
                 $county,
                 $favorite_citation,
-                $interests,
+                $interests = [],
                 $description,
                 $profile_picture,
                 $profile_banner,
@@ -140,7 +140,7 @@ class User extends Entity {
         $this->favorite_citation = $favorite_citation;
     }
 
-    public function setInterests($interests) {
+    public function setInterests(array $interests) {
         $this->interests = $interests;
     }
 

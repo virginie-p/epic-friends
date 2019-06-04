@@ -9,9 +9,98 @@
 {% endblock title %}
 
 {% block links %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.css">
 {% endblock links %}
 
 {% block menu %}{% include "/front/connectedMenu.twig" %}{% endblock %}
 
 {% block content %}
+<div class="container justify-content-center pt-3 text-center border mb-2">
+    <h2 class="row justify-content-center mb-5">Modifier mon profil</h2>
+    <form action="{{ BASE_URL }}modify-profile/{{ user.id() }}" id="modify-profile" class="form-inline" method="POST" enctype="multipart/form-data">
+        <div class="form-group align-items-center justify-content-start col-lg-8 offset-lg-4 mx-auto mb-0">
+            <div class="form-row mb-3">
+                <label for="gender">Genre : </label>
+                <select name="gender" id="gender" class="ml-2 mr-4 form-control form-control-sm">
+                    <option class="text-muted" value="">Précisez votre genre</option>
+                    <option value="Homme">Homme</option>
+                    <option value="Femme">Femme</option>
+                    <option value="Non-Binaire">Non-Binaire</option>
+                </select>        
+            </div>
+            <div class="form-row mb-3">
+                    <label for="birthdate">Date de naissance : </label>
+                    <input type="text" class="datetimepicker-input form-control form-control-sm ml-2" name="birthdate" id="datetimepicker5" data-toggle="datetimepicker" data-target="#datetimepicker5" autocomplete="off"/>                          
+            </div>
+        </div>
+        <div class="form-group mb-3 align-items-center justify-content-start col-lg-8 offset-lg-4 mx-auto">
+            <div class="form-row" id="department">
+                <label for="county">Département : </label>
+                <input type="text" class="form-control form-control-sm mx-2" name="county" id="department-search" autocomplete="off">
+            </div>            
+        </div>
+        <div class="form-group mb-3 align-items-center justify-content-start col-lg-8 offset-lg-4 mx-auto">
+            <div class="form-row">
+                <label for="interests" class="mr-2"> Centres d'intérêts :</label>
+                <select id="interests" name="interests[]" multiple placeholder="Sélectionnez un ou plusieurs centres d'intérêts...">
+                    <option value="">Sélectionnez un ou plusieurs centre(s) d'intérêt(s)</option>
+                    {% for interest in interests %}
+                    <option value={{ interest.id() }}>{{ interest.interestName() }}</option>
+                    {% endfor %}
+                </select>                
+            </div>
+        </div>
+        <div class="form-group align-items-center justify-content-start col-lg-8 offset-lg-4 mx-auto mb-3">
+            <div class="form-row">
+                <label for="favorite-citation">Ma citation favorite : </label>
+                <textarea type="text" class="form-control" name="favorite-citation" id="favorite-citation" cols="100" rows="2"></textarea>
+            </div>            
+        </div>
+        <div class="form-group align-items-center justify-content-start col-lg-8 offset-lg-4 mx-auto mb-3">
+            <div class="form-row">
+                <label for="identified-as" class="mr-2">Mon personnage fétiche : </label>
+                <input type="text" class="form-control form-control-sm" name="identified-as" id="identified-as">
+            </div>
+        </div>
+        <div class="form-group align-items-center justify-content-start col-lg-8 offset-lg-4 mx-auto mb-3">
+            <div class="form-row">
+                <div class="custom-file">
+                    <label for="profile-picture" class="custom-file-label">Sélectionner votre photo de profil</label>
+                    <input type="file" class="custom-file-input" name="profile-picture" aria-describedby="select-profile-picture-help">
+                </div>
+                <small id="select-profile-picture-help" class="form-text text-muted">Votre photo de profil ne doit pas dépasser 2 Mo et doit respecter le ratio 150*150px.</small>
+            </div>
+        </div>
+        <div class="form-group align-items-center justify-content-start col-lg-8 offset-lg-4 mx-auto mb-3 ">
+            <div class="form-row ">
+                <div class="custom-file">
+                    <label for="profile-banner" class="custom-file-label">Sélectionner votre image-bannière</label>
+                    <input type="file" class="custom-file-input" name="profile-banner" aria-describedby="select-banner-picture-help">
+                </div>
+                <small id="select-banner-picture-help" class="form-text text-muted">Votre bannière ne doit pas dépasser 2 Mo et doit respecter le ratio 1138*250px.</small>
+            </div>
+        </div>
+        <div class="form-group align-items-center justify-content-start col-lg-8 offset-lg-4 mx-auto mb-3">
+            <div class="form-row">
+                <label for="description">Renseignez une description pour votre profil</label>
+                <textarea name="description" class="form-control" id="" cols="100" rows="5"></textarea>
+            </div>            
+        </div>
+    </form>
+    <div class="mb-4">
+        <button class="btn btn-primary mb-3" type="submit" form="modify-profile">Modifier mon profil</button>
+        <a role="button" class="btn btn-secondary mb-3" href="{{BASE_URL}}" >Annuler et retourner à l'accueil</a>
+    </div>
+
+</div>
+
 {% endblock %}
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+    <script src="{{ BASE_URL }}public/js/CustomFile.js"></script>
+    <script src="{{ BASE_URL }}public/js/DatePicker.js"></script>
+    <script src="{{ BASE_URL }}public/js/Autocomplete.js"></script>
+    <script src="{{ BASE_URL }}public/js/standalone-selectize.js"></script>
+    <script src="{{ BAS_URL }}public/js/Selectize.js"></script>
+{% endblock scripts %}

@@ -2,6 +2,7 @@
 
 namespace App\Model;
 use App\Entity\User;
+use App\Entity\Interest;
 use \PDO;
 
 class UserManager extends Manager {
@@ -134,6 +135,7 @@ class UserManager extends Manager {
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'App\Entity\User');
 
         $members = $req->fetchAll();
+        
 
         return $members;
     }
@@ -203,5 +205,41 @@ class UserManager extends Manager {
         return $user;
     }
 
+    public function getInterests() {
+        $db = $this->MySQLConnect();
+        $req = $db->query('SELECT * FROM project_5_interests');
+
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'App\Entity\Interest');
+        $interests = $req->fetchAll();
+        
+        return $interests;
+    }
+
+    public function modifyProfile(User $user) {
+        $db = $this->MySQLConnect();
+        $req = $db->prepare('UPDATE project_5_users_profiles 
+                            SET birthdate = (CASE WHEN :birthdate IS NOT NULL THEN :birthdate ELSE birthdate END),
+                                gender = (CASE WHEN :gender IS NOT NULL THEN :gender ELSE gender END), 
+                                county = (CASE WHEN :county IS NOT NULL THEN :county ELSE county END),  
+                                favorite_citation = (CASE WHEN :favorite_citation IS NOT NULL THEN :favorite_citation ELSE favorite_citation END),
+                                description = (CASE WHEN :description IS NOT NULL THEN :description ELSE description END),
+                                profile_picture = (CASE WHEN :profile_picture IS NOT NULL THEN :profile_picture ELSE profile_picture END),
+                                profile_banner = (CASE WHEN :profile_banner IS NOT NULL THEN :profile_banner ELSE profile_banner END), 
+                                identified_as = (CASE WHEN :identified_as IS NOT NULL THEN :identified_as ELSE identified_as END),
+                            WHERE id = :id');
+        $result = $req->execute([
+            'birthdate' => $user->birthdate(),
+            'gender' => $user->gender(),
+            'county' => $user->county(),
+            'favorite_citation' => $user->favoriteCitation(),
+            'description' => $user->description(),
+            'profile_picture' => $user->profilePicture(),
+            'profile_banner' => $user->profileBanner(),
+            'identified_as' => $user->identifiedAs(),
+            'id' => $user->id()
+        ]);
+
+        return $result;
+    }
 
 }
