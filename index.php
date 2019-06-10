@@ -50,6 +50,16 @@ $router->addRoute('GET|POST', '/modify-profile/:id', function($id) {
     $user_controller->modifyProfile($id);
 });
 
+$router->addRoute('GET', 'my-account', function(){
+    $user_controller = new UserController();
+    $user_controller->displayAccount();
+});
+
+$router->addRoute('GET|POST', 'modify-account/:id', function($id) {
+    $user_controller = new UserController();
+    $user_controller->modifyAccount($id);
+});
+
 $router->addRoute('GET', '/test', function(){echo 'Page de Test';});
 
 $router->run();

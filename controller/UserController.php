@@ -208,8 +208,10 @@ class UserController extends Controller {
     }
 
     public function modifyProfile($id) {
+        var_dump($_SESSION['user']);
+        die();
         if(isset($_SESSION['user'])) {
-            $user_manager = new UserManager;
+            $user_manager = new UserManager();
             $user = $user_manager->getMember($id);
 
             if (!$user) {
@@ -398,6 +400,15 @@ class UserController extends Controller {
                         echo json_encode($data);
                     } 
                     else  {
+                        $_SESSION['user']->setGender($profile_data['gender']);
+                        $_SESSION['user']->setBirthdate($profile_data['birthdate']);
+                        $_SESSION['user']->setCounty($profile_data['county']);
+                        $_SESSION['user']->setFavoriteCitation($profile_data['favorite_citation']);
+                        $_SESSION['user']->setIdentifiedAs($profile_data['identified_as']);
+                        $_SESSION['user']->setProfilePicture($profile_data['profile_picture']);
+                        $_SESSION['user']->setProfileBanner($profile_data['profile_banner']);
+                        $_SESSION['user']->setDescription($profile_data['description']);
+
                         $client = new Client(new Ruleset());
                         $emoji_description = $client->toImage($profile_data['description']);
                         $data['description'] = $emoji_description;
@@ -411,5 +422,138 @@ class UserController extends Controller {
         else {
             echo $this->twig->render('/front/homepage/disconnectedHome.twig');
         }
+    }
+
+    public function displayAccount(){
+        if(isset($_SESSION['user'])) {
+            $user_manager = new UserManager();
+            $user = $user_manager->getMember($_SESSION['user']->id());
+
+            $interests_center = $user_manager->getInterests();
+
+            echo $this->twig->render('front/userAccount.twig', [
+                'user' => $user
+            ]);
+   
+        }
+        else {
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig');
+        }
+    }
+
+    public function modifyAccount($id){
+        if (isset($_SESSION['user'])) {
+            $user_manager = new UserManager();
+            $user = $user_manager->getMember($id);
+
+            if (!$user) {
+                $data['status'] = 'error';
+                $data['errors'] = ['user_not_found'];
+                echo json_encode($data);
+            }
+            else {
+                $account_data = [];
+                $errors = [];
+                $account_data['id'] = $id;
+
+
+                /** Check if the pseudo is correct */
+                if (!empty($_POST['username'])) {
+                    $members = $user_manager->getMembers();
+
+                    foreach($members as $member) {
+                        if ($member->username() === $_POST['username'] && $member->username() != $user->username()) {
+                            $errors[] = 'username_already_used';
+                        }   
+                    }
+
+                    if (!preg_match('#[0-9A-Za-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._-]{6,}#', $_POST['username'])){
+                        $errors[] = 'username_not_matching_regex' ;
+                    }
+
+                    if (strlen($_POST['username']) > 20) {
+                        $errors[] = 'username_too_long';
+                    }
+
+                    if(!in_array('username_already_used', $errors) || !in_array('username_not_matching_regex', $errors) || !in_array('username_too_long', $errors)) {
+                        $account_data['username'] = $_POST['username'];
+                    }
+                    
+                }
+                else {
+                    $account_data['username'] = $user->username();
+                }
+
+
+                /** Check if the password is correct */
+                if(!empty($_POST['new-password'])) {
+                    if ($_POST['new-password'] != $_POST['password-confirmation']) {
+                        $errors[] = 'passwords_not_identical' ;
+                    }
+        
+                    if (!preg_match('#^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{7,})\S$#', $_POST['new-password'])) {
+                        $errors[] = 'password_not_matching_regex';
+                    }
+
+                    if(!in_array('passwords_not_identical', $errors) || !in_array('password_not_matching_regex', $errors)) {
+                        $account_data['password'] = password_hash($_POST['new-password'], PASSWORD_DEFAULT);
+                    }
+                }
+                else {
+                    $account_data['password'] = $user->password();
+                }
+
+                /** Check if the email is correct */
+                if(!empty($_POST['email'])) {
+                    $members = $user_manager->getMembers();
+
+                    foreach($members as $member) {
+                        if ($member->email() === $_POST['email'] && $member->email() != $user->email()) {
+                            $errors[] = 'email_already_used';
+                        }
+                    }
+
+                    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                        $errors[] = 'email_invalid';
+                    }
+
+                    if(!in_array('email_already_used', $errors) || !in_array('email_invalid', $errors)) {
+                        $account_data['email'] = $_POST['email'];
+                    }
+                }
+                else {
+                    $account_data['email'] = $user->email();
+                }
+            }
+
+            if (!empty($errors)) {
+                $data['status'] = 'error';
+                $data['errors'] = $errors;
+                echo json_encode($data);
+            }
+            else {
+                $modification_worked = $user_manager->modifyAccount($account_data);
+
+                if(!$modification_worked){
+                    $data['status'] = 'error';
+                    $data['errors'] = ['modification_server_didnt_worked'];
+                    echo json_encode($data);
+                } 
+                else  {
+                    $_SESSION['user']->setUsername($account_data['username']);
+                    $_SESSION['user']->setEmail($account_data['email']);
+                    $_SESSION['user']->setPassword(password_hash($account_data['password'], PASSWORD_DEFAULT));
+                    $data['username'] = $account_data['username'];
+                    $data['status'] = 'success';
+                    echo json_encode($data);
+                }
+            }
+
+
+        }
+        else {
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig');
+        }
+
     }
 }

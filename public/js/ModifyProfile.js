@@ -23,7 +23,6 @@ $(function()  {
                 let errors = data.errors;
                 errors.forEach(error => {
                     if (error == 'user_not_found') {
-                        console.log('test');
                         window.location.href = baseUrl + '/404-not-found';
                     }
                     else if(error == 'gender_not_existing') {

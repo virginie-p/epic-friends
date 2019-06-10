@@ -266,4 +266,13 @@ form {
   font-size: 80%;
   color: #dc3545; }
 
+#email .form-control {
+  width: 180%; }
+
+#username.form-control {
+  width: 150px; }
+
+.form-control.password {
+  width: 400px; }
+
 /*# sourceMappingURL=main.css.map */

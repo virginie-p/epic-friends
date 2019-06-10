@@ -272,4 +272,20 @@ class UserManager extends Manager {
         
     }
 
+    public function modifyAccount(array $user_data) {
+        $db = $this->MySQLConnect();
+        $req = $db->prepare('UPDATE project_5_users_parameters
+                            SET username = :username,
+                                password = :password,
+                                email = :email
+                            WHERE id = :id');
+        $result = $req->execute([
+            'username' => $user_data['username'],
+            'password' => $user_data['password'],
+            'email' => $user_data['email'], 
+            'id' => $user_data['id']
+        ]);
+        
+        return $result;
+    }
 }

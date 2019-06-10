@@ -1,0 +1,62 @@
+{% extends "template.twig" %}
+
+{% block meta %}
+    
+{% endblock meta %}
+
+{% block title %}
+<title>Vos informations de profil</title>
+{% endblock title %}
+
+{% block links %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.css">
+<script src="https://cdn.tiny.cloud/1/d5vv90gjbxrlkogbd4bmlpy6bbsfy9ml7c7dd5pjujl5ska4/tinymce/5/tinymce.min.js"></script>
+
+{% endblock links %}
+
+{% block menu %}{% include "/front/connectedMenu.twig" %}{% endblock %}
+
+{% block content %}
+<div class="container justify-content-center pt-3 border">
+    <h2 class="row justify-content-center text-center mb-5">Modifier mon compte</h2>
+    <form action="{{ BASE_URL }}modify-account/{{ user.id() }}" id="modify-account" class="text-left col-lg-8 mx-auto" method="POST" enctype="post" novalidate>
+        <div class="form-row align-items-center justify-content-between mr-auto col-lg-12">
+            <div class="form-group" id="department">
+                <label for="username">Pseudo : </label>
+                <input type="text" class="form-control form-control-sm" name="username" id="username" value = "{{ user.username() }}">
+                <small id="username-help" class="form-text text-muted">Votre login doit être composé de 6 caractères minimum.</small>
+            </div>            
+        </div>
+        <div class="form-row align-items-center justify-content-start col-lg-12">
+            <div class="form-group">
+                <label for="new-password">Nouveau mot de passe</label>
+                <input type="password" class="form-control form-control-sm password" name="new-password">
+                <small id="password-help" class="form-text text-muted">Renseignez ce champ uniquement si vous souhaitez modifier votre mot de passe.</br> Votre mot de passe doit être composé de 8 caractères dont à minima un chiffre et une lettre majuscule.</small>
+            </div>            
+        </div>
+        <div class="form-row align-items-center justify-content-start col-lg-12">
+            <div class="form-group">
+                <label for="password-confirmation">Confirmation de mot de passe </label>
+                <input type="password" class="form-control form-control-sm password" name="password-confirmation">
+                <small id="password-confirmation-help" class="form-text text-muted">Renseignez également ce champ en cas de modification de mot de passe pour que nous nous assurions que vous connaissez bien votre nouveau mot de passe.</small>
+            </div>
+        </div>
+        <div class="form-row align-items-center justify-content-between mr-auto col-lg-12">
+            <div class="form-group" id="email">
+                <label for="email">Adresse email : </label>
+                <input type="text" class="form-control form-control-sm" name="email" value = "{{ user.email() }}">
+            </div>            
+        </div>
+    </form>
+    <div class="mb-4 text-center">
+        <button class="btn btn-primary mb-3" type="submit" form="modify-account" id="modify-account-button">Modifier mes informations personnelles</button>
+        <a role="button" class="btn btn-secondary mb-3" href="{{BASE_URL}}" >Annuler et retourner à l'accueil</a>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ BASE_URL }}public/js/ModifyAccount.js"></script>
+{% endblock scripts %}
