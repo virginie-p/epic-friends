@@ -145,9 +145,7 @@ class User extends Entity {
     }
 
     public function setDescription($description) {
-        $parsedown = new \Parsedown();
-        $Parsedown->setSafeMode(true);
-        $this->setDescription = $parsedown->text($description);
+        $this->description = $description;
     }
 
     public function setProfilePicture($profile_picture) {
@@ -169,7 +167,7 @@ class User extends Entity {
     /**METHODS */
 
     public function getAge() {
-        $birthdate = new \Datetime($this->birthdate());
+        $birthdate = new \Datetime($this->birthdate);
         $birthdate->format('Y-m-d');
 
         $actual_date = new \Datetime();

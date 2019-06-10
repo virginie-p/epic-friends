@@ -91,6 +91,10 @@ footer {
 body {
   font-family: "Roboto", sans-serif; }
 
+.emojione {
+  width: 25px;
+  height: auto; }
+
 .jumbotron {
   background-color: rgba(31, 72, 110, 0.541);
   color: white;
@@ -163,6 +167,9 @@ body {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     transition: all 0.3s; }
+    #user-buttons .btn img {
+      width: 25px;
+      height: auto; }
   #user-buttons .btn-1 {
     background: #784c8a;
     box-shadow: 0 5px #6C3B80; }
@@ -174,14 +181,14 @@ body {
       box-shadow: 0 0 #6C3B80;
       top: 6px; }
   #user-buttons .btn-2 {
-    background: #ff7829;
-    box-shadow: 0 5px #f36337; }
+    background: #c31432;
+    box-shadow: 0 5px #A01129; }
     #user-buttons .btn-2:hover {
-      box-shadow: 0 3px #f36337;
+      box-shadow: 0 3px #A01129;
       color: #F2F4F3;
       top: 2px; }
     #user-buttons .btn-2:active {
-      box-shadow: 0 0 #f36337;
+      box-shadow: 0 0 #A01129;
       top: 6px; }
 
 .modal-footer .btn.btn-success {
@@ -190,8 +197,12 @@ body {
 
 #modify-profile {
   position: relative; }
-  #modify-profile #datetimepicker5 {
-    width: 150px; }
+  #modify-profile .form-row {
+    position: relative; }
+  #modify-profile .text-area-full {
+    width: 100%; }
+  #modify-profile .tox-tinymce {
+    border-radius: .25rem; }
 
 form {
   position: relative; }
@@ -219,7 +230,10 @@ form {
   -webkit-box-shadow: none;
   box-shadow: none; }
 .selectize-control.multi .selectize-input > div {
-  background: #50B9CA !important; }
+  background-image: linear-gradient(to bottom, #c31432, #A01129);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), inset 0 1px rgba(255, 255, 255, 0.03);
+  color: white !important;
+  border-radius: 3px; }
 .selectize-control.multi .selectize-dropdown {
   color: #293132; }
 
@@ -228,8 +242,6 @@ form {
   color: #293132; }
   #modify-profile input::placeholder, #modify-profile textarea::placeholder, #modify-profile .option::placeholder, #modify-profile .item::placeholder {
     color: #293132; }
-#modify-profile .custom-select, #modify-profile .form-control {
-  width: auto; }
 #modify-profile .custom-file .custom-file-label {
   overflow: hidden;
   text-align: left;
@@ -239,11 +251,13 @@ form {
   @media (min-width: 576px) {
     #modify-profile .custom-file .custom-file-label {
       justify-content: flex-start; } }
-@media all and (min-width: 768px) {
-  #modify-profile .custom-file {
-    width: 50%; } }
 @media (max-width: 576px) {
   #modify-profile #identified-as {
     width: 100%; } }
+#modify-profile .invalid-select {
+  width: 100%;
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #dc3545; }
 
 /*# sourceMappingURL=main.css.map */

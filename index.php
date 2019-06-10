@@ -2,12 +2,18 @@
 
 require 'composer/vendor/autoload.php';
 use App\Router\Router;
+use App\Controller\Controller;
 use App\Controller\HomeController;
 use App\Controller\UserController;
 
 session_start();
 
 $router = new Router($_GET['url']);
+
+$router->addRoute('GET', '/404-not-found', function(){
+    $controller = new Controller();
+    $controller->display404();
+});
 
 $router->addRoute('GET', '/', function(){ 
     $home_controller = new HomeController();

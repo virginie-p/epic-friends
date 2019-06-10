@@ -47,8 +47,7 @@ class Controller {
             ];
         } 
         else {
-
-            $errors[] = $upload_data['upload_errors'];
+            $errors[] = $upload_errors;
 
             if (!empty($upload_results) && !$upload_results['upload_status']) {
                 $errors[] = 'file_not_moved';
@@ -59,7 +58,9 @@ class Controller {
                 "errors" => $errors,
             ];
         }
+    }
 
-        
+    public function display404() {
+        echo $this->twig->render('error404.twig');
     }
 }

@@ -105,7 +105,7 @@ class UserManager extends Manager {
         return $user;
     }
 
-    public function getCountyNewMembers($user) {
+    public function getNewCountyMembers($user) {
         $db = $this->MySQLConnect();
         $req = $db->prepare('SELECT users_parameters.id,
                                     user_type_id,
@@ -207,7 +207,7 @@ class UserManager extends Manager {
 
     public function getInterests() {
         $db = $this->MySQLConnect();
-        $req = $db->query('SELECT * FROM project_5_interests');
+        $req = $db->query('SELECT id, interest_name FROM project_5_interests ORDER BY interest_name ASC');
 
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'App\Entity\Interest');
         $interests = $req->fetchAll();
@@ -215,31 +215,61 @@ class UserManager extends Manager {
         return $interests;
     }
 
-    public function modifyProfile(User $user) {
+    public function modifyProfile(array $user_data) {
         $db = $this->MySQLConnect();
         $req = $db->prepare('UPDATE project_5_users_profiles 
-                            SET birthdate = (CASE WHEN :birthdate IS NOT NULL THEN :birthdate ELSE birthdate END),
-                                gender = (CASE WHEN :gender IS NOT NULL THEN :gender ELSE gender END), 
-                                county = (CASE WHEN :county IS NOT NULL THEN :county ELSE county END),  
-                                favorite_citation = (CASE WHEN :favorite_citation IS NOT NULL THEN :favorite_citation ELSE favorite_citation END),
-                                description = (CASE WHEN :description IS NOT NULL THEN :description ELSE description END),
-                                profile_picture = (CASE WHEN :profile_picture IS NOT NULL THEN :profile_picture ELSE profile_picture END),
-                                profile_banner = (CASE WHEN :profile_banner IS NOT NULL THEN :profile_banner ELSE profile_banner END), 
-                                identified_as = (CASE WHEN :identified_as IS NOT NULL THEN :identified_as ELSE identified_as END),
-                            WHERE id = :id');
+                            SET birthdate = :birthdate,
+                                gender = :gender,
+                                county = :county,
+                                favorite_citation = :favorite_citation,
+                                description = :description,
+                                profile_picture = :profile_picture,
+                                profile_banner = :profile_banner, 
+                                identified_as = :identified_as
+                            WHERE user_id = :user_id');
         $result = $req->execute([
-            'birthdate' => $user->birthdate(),
-            'gender' => $user->gender(),
-            'county' => $user->county(),
-            'favorite_citation' => $user->favoriteCitation(),
-            'description' => $user->description(),
-            'profile_picture' => $user->profilePicture(),
-            'profile_banner' => $user->profileBanner(),
-            'identified_as' => $user->identifiedAs(),
-            'id' => $user->id()
+            'birthdate' => $user_data['birthdate'],
+            'gender' => $user_data['gender'],
+            'county' => $user_data['county'],
+            'favorite_citation' => $user_data['favorite_citation'],
+            'description' => $user_data['description'],
+            'profile_picture' => $user_data['profile_picture'],
+            'profile_banner' => $user_data['profile_banner'],
+            'identified_as' => $user_data['identified_as'],
+            'user_id' => $user_data['id']
         ]);
 
-        return $result;
+        
+        if (!$result) {
+            return $result;
+
+        } else {
+            $second_req = $db->prepare('DELETE FROM project_5_users_interests WHERE user_id = :user_id');
+
+            $result = $second_req->execute(['user_id' => $user_data['id']]);
+            
+            $second_req->closeCursor();
+
+            if (!$result) {
+                return $result;
+            }
+            else {
+                foreach ($user_data['interests'] as $interest_id) {
+
+                    $third_req = $db->prepare('INSERT INTO project_5_users_interests(user_id, interest_id) VALUES (:user_id, :interest_id)');
+    
+                    $result = $third_req->execute([
+                        'interest_id' => $interest_id, 
+                        'user_id' => $user_data['id']
+                    ]);
+
+                    $third_req->closeCursor();
+                }
+            }  
+
+            return $result;
+        }
+        
     }
 
 }

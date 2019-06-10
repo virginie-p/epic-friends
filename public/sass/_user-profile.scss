@@ -1,8 +1,15 @@
 #modify-profile {
     position: relative;
 
-    #datetimepicker5 {
-        width: 150px;
+    .form-row {
+        position: relative;
+    }
+    .text-area-full {
+        width: 100%;
+    }
+
+    .tox-tinymce {
+        border-radius: .25rem;
     }
 }
 
@@ -41,7 +48,10 @@ form {
         
     }
     .selectize-input > div {
-    background: $blue !important;
+    background-image: linear-gradient(to bottom, $red-orange, $burn-orange);
+    box-shadow: 0 1px 0 rgba(0,0,0,.2), inset 0 1px rgba(255,255,255,.03);
+    color: white !important;
+    border-radius : 3px;
     }
     .selectize-dropdown {
         color: $dark;
@@ -57,9 +67,6 @@ form {
             color: $dark;
         }
     }
-    .custom-select, .form-control {
-        width: auto;
-    }
     .custom-file {
         .custom-file-label {
             overflow: hidden;
@@ -72,15 +79,20 @@ form {
                 justify-content: flex-start;
             }
         }
-        @media all and (min-width:768px){
-            width: 50%;
-        }
+
     }
     
     #identified-as {
         @media (max-width: 576px) {
             width: 100%;
         }
+    }
+
+    .invalid-select {
+        width: 100%;
+        margin-top: .25rem;
+        font-size: 80%;
+        color: #dc3545;
     }
     
 }

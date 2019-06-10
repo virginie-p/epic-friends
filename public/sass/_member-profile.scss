@@ -91,6 +91,11 @@
         -webkit-transition: all 0.3s;
         -moz-transition: all 0.3s;
         transition: all 0.3s;
+
+        img {
+            width: 25px;
+            height: auto;
+        }
     }
     
     .btn-1 {
@@ -108,15 +113,15 @@
     }
     
     .btn-2 {
-        background:  rgb(255, 120, 41);
-        box-shadow: 0 5px rgb(243, 99, 55);
+        background:  $red-orange;
+        box-shadow: 0 5px $burn-orange;
         &:hover {
-            box-shadow: 0 3px rgb(243, 99, 55);
+            box-shadow: 0 3px $burn-orange;
             color: $light;
             top: 2px;
         }
         &:active {
-            box-shadow: 0 0 rgb(243, 99, 55);
+            box-shadow: 0 0 $burn-orange;
             top: 6px;
         }
     }

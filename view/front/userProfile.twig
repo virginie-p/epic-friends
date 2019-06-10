@@ -10,85 +10,87 @@
 
 {% block links %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.css">
+<script src="https://cdn.tiny.cloud/1/d5vv90gjbxrlkogbd4bmlpy6bbsfy9ml7c7dd5pjujl5ska4/tinymce/5/tinymce.min.js"></script>
+
 {% endblock links %}
 
 {% block menu %}{% include "/front/connectedMenu.twig" %}{% endblock %}
 
 {% block content %}
-<div class="container justify-content-center pt-3 text-center border mb-2">
-    <h2 class="row justify-content-center mb-5">Modifier mon profil</h2>
-    <form action="{{ BASE_URL }}modify-profile/{{ user.id() }}" id="modify-profile" class="form-inline" method="POST" enctype="multipart/form-data">
-        <div class="form-group align-items-center justify-content-start col-lg-8 offset-lg-4 mx-auto mb-0">
-            <div class="form-row mb-3">
+<div class="container justify-content-center pt-3 border">
+    <h2 class="row justify-content-center text-center mb-5">Modifier mon profil</h2>
+    <form action="{{ BASE_URL }}modify-profile/{{ user.id() }}" id="modify-profile" class="text-left col-lg-8 mx-auto" method="POST" enctype="multipart/form-data" novalidate>
+        <div class="form-row align-items-center justify-content-between col-lg-12">
+            <div class="form-group col-lg-4">
                 <label for="gender">Genre : </label>
-                <select name="gender" id="gender" class="ml-2 mr-4 form-control form-control-sm">
+                <select name="gender" id="gender" class="form-control form-control-sm">
                     <option class="text-muted" value="">Précisez votre genre</option>
-                    <option value="Homme">Homme</option>
-                    <option value="Femme">Femme</option>
-                    <option value="Non-Binaire">Non-Binaire</option>
+                    <option value="Homme"{% if user.gender() == 'Homme' %}selected{% endif %}>Homme</option>
+                    <option value="Femme"{% if user.gender() == 'Femme' %}selected{% endif %}>Femme</option>
+                    <option value="Non-Binaire"{% if user.gender() == 'Non-Binaire' %}selected{% endif %}>Non-Binaire</option>
                 </select>        
             </div>
-            <div class="form-row mb-3">
-                    <label for="birthdate">Date de naissance : </label>
-                    <input type="text" class="datetimepicker-input form-control form-control-sm ml-2" name="birthdate" id="datetimepicker5" data-toggle="datetimepicker" data-target="#datetimepicker5" autocomplete="off"/>                          
+            <div class="form-group col-lg-4">
+                <label for="birthdate">Date de naissance : </label>
+                <input type="text" class="datetimepicker-input form-control form-control-sm" name="birthdate" id="datetimepicker5" data-toggle="datetimepicker" data-target="#datetimepicker5" autocomplete="off" {% if user.birthdate() is not null %}data-value = "{{ user.birthdate() }}"{% endif %}/>                          
             </div>
         </div>
-        <div class="form-group mb-3 align-items-center justify-content-start col-lg-8 offset-lg-4 mx-auto">
-            <div class="form-row" id="department">
+        <div class="form-row align-items-center justify-content-between mr-auto col-lg-12">
+            <div class="form-group" id="department">
                 <label for="county">Département : </label>
-                <input type="text" class="form-control form-control-sm mx-2" name="county" id="department-search" autocomplete="off">
+                <input type="text" class="form-control form-control-sm" name="county" id="department-search" autocomplete="off" {% if user.county() is not null %}value = "{{ user.county() }}"{% endif %}>
             </div>            
         </div>
-        <div class="form-group mb-3 align-items-center justify-content-start col-lg-8 offset-lg-4 mx-auto">
-            <div class="form-row">
-                <label for="interests" class="mr-2"> Centres d'intérêts :</label>
+        <div class="form-row align-items-center justify-content-start col-lg-12">
+            <div class="form-group">
+                <label for="interests" class=""> Centres d'intérêts :</label>
                 <select id="interests" name="interests[]" multiple placeholder="Sélectionnez un ou plusieurs centres d'intérêts...">
                     <option value="">Sélectionnez un ou plusieurs centre(s) d'intérêt(s)</option>
                     {% for interest in interests %}
-                    <option value={{ interest.id() }}>{{ interest.interestName() }}</option>
+                    <option value={{ interest.id() }} {% for user_interest in user.interests() %} {% if user_interest == interest.interestName() %} selected {% endif %} {% endfor %}>{{ interest.interestName() }}</option>
                     {% endfor %}
                 </select>                
             </div>
         </div>
-        <div class="form-group align-items-center justify-content-start col-lg-8 offset-lg-4 mx-auto mb-3">
-            <div class="form-row">
+        <div class="form-row align-items-center justify-content-start col-lg-12">
+            <div class="form-group text-area-full">
                 <label for="favorite-citation">Ma citation favorite : </label>
-                <textarea type="text" class="form-control" name="favorite-citation" id="favorite-citation" cols="100" rows="2"></textarea>
+                <textarea type="text" class="form-control" name="favorite-citation" id="favorite-citation">{% if user.favoriteCitation() is not null %}{{ user.favoriteCitation() }}{% endif %}</textarea>
             </div>            
         </div>
-        <div class="form-group align-items-center justify-content-start col-lg-8 offset-lg-4 mx-auto mb-3">
-            <div class="form-row">
-                <label for="identified-as" class="mr-2">Mon personnage fétiche : </label>
-                <input type="text" class="form-control form-control-sm" name="identified-as" id="identified-as">
+        <div class="form-row align-items-center justify-content-start col-lg-12">
+            <div class="form-group">
+                <label for="identified-as">Mon personnage fétiche : </label>
+                <input type="text" class="form-control form-control-sm" name="identified-as" id="identified-as"{% if user.identifiedAs() is not null %}value="{{ user.identifiedAs() }}" {% endif %}>
             </div>
         </div>
-        <div class="form-group align-items-center justify-content-start col-lg-8 offset-lg-4 mx-auto mb-3">
-            <div class="form-row">
+        <div class="form-row align-items-center justify-content-start col-lg-12">
+            <div class="form-group">
                 <div class="custom-file">
-                    <label for="profile-picture" class="custom-file-label">Sélectionner votre photo de profil</label>
+                    <label for="profile-picture" class="custom-file-label">Sélectionner une nouvelle votre photo de profil</label>
                     <input type="file" class="custom-file-input" name="profile-picture" aria-describedby="select-profile-picture-help">
                 </div>
                 <small id="select-profile-picture-help" class="form-text text-muted">Votre photo de profil ne doit pas dépasser 2 Mo et doit respecter le ratio 150*150px.</small>
             </div>
         </div>
-        <div class="form-group align-items-center justify-content-start col-lg-8 offset-lg-4 mx-auto mb-3 ">
-            <div class="form-row ">
+        <div class="form-row align-items-center justify-content-start col-lg-12">
+            <div class="form-group">
                 <div class="custom-file">
-                    <label for="profile-banner" class="custom-file-label">Sélectionner votre image-bannière</label>
+                    <label for="profile-banner" class="custom-file-label">Sélectionner une nouvelle image-bannière</label>
                     <input type="file" class="custom-file-input" name="profile-banner" aria-describedby="select-banner-picture-help">
                 </div>
                 <small id="select-banner-picture-help" class="form-text text-muted">Votre bannière ne doit pas dépasser 2 Mo et doit respecter le ratio 1138*250px.</small>
             </div>
         </div>
-        <div class="form-group align-items-center justify-content-start col-lg-8 offset-lg-4 mx-auto mb-3">
-            <div class="form-row">
+        <div class="form-row align-items-center justify-content-start col-lg-12">
+            <div class="form-group text-area-full">
                 <label for="description">Renseignez une description pour votre profil</label>
-                <textarea name="description" class="form-control" id="" cols="100" rows="5"></textarea>
+                <textarea name="description" class="form-control" id="mytextarea" rows="8">{% if user.description() is not null %}{{ user.description()|raw }} {% endif %}</textarea>
             </div>            
         </div>
     </form>
-    <div class="mb-4">
-        <button class="btn btn-primary mb-3" type="submit" form="modify-profile">Modifier mon profil</button>
+    <div class="mb-4 text-center">
+        <button class="btn btn-primary mb-3" type="submit" form="modify-profile" id="modify-button">Modifier mon profil</button>
         <a role="button" class="btn btn-secondary mb-3" href="{{BASE_URL}}" >Annuler et retourner à l'accueil</a>
     </div>
 
@@ -102,5 +104,6 @@
     <script src="{{ BASE_URL }}public/js/DatePicker.js"></script>
     <script src="{{ BASE_URL }}public/js/Autocomplete.js"></script>
     <script src="{{ BASE_URL }}public/js/standalone-selectize.js"></script>
-    <script src="{{ BAS_URL }}public/js/Selectize.js"></script>
+    <script src="{{ BASE_URL }}public/js/Selectize.js"></script>
+    <script src="{{ BASE_URL }}public/js/ModifyProfile.js"></script>
 {% endblock scripts %}

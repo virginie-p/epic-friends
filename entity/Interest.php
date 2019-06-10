@@ -16,8 +16,8 @@ class Interest extends Entity {
 
     /*SETTERS*/
 
-    public function setId($id) {
-        $this->id = (int) $id;
+    public function setId(int $id) {
+        $this->id = $id;
     }
 
     public function setInterestName($interest_name) {

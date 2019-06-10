@@ -9,7 +9,7 @@ $(function() {
         let formData = new FormData(form);
 
         $.ajax({
-            url : baseUrl + '/subscribe',
+            url : window.location.href,
             type: 'POST',
             data: formData,
             dataType: 'json',
