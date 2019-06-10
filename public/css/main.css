@@ -68,7 +68,7 @@ footer {
     border-color: #50B9CA; }
     footer button.btn-secondary:hover, footer a.btn-secondary:hover {
       background-color: #82c7d1;
-      background-color: #82c7d1; }
+      border-color: #82c7d1; }
 
 .nav-item {
   font-size: 1rem; }
@@ -94,6 +94,12 @@ body {
 .emojione {
   width: 25px;
   height: auto; }
+
+footer a {
+  color: #50B9CA; }
+  footer a:hover {
+    text-decoration: none;
+    color: #82c7d1; }
 
 .jumbotron {
   background-color: rgba(31, 72, 110, 0.541);
@@ -125,7 +131,7 @@ body {
 #member-basics .details-item, #member-description .details-item {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   margin-bottom: 10px; }
 #member-basics h3, #member-description h3 {
   font-style: normal;

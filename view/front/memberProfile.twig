@@ -20,7 +20,6 @@
             <div class="jumbotron">
                 <div class="container chapter-title">
                     <h1 class="display-4">{{ member.username() }}, {{ member.getAge() }} ans</h1>
-                    <h3 class="lead">{{ member.favoriteCitation() }}</h3>
                 </div>
                 <div id="profile-picture">
                     <img src="{{ BASE_URL }}public/images/profiles-pictures/{{ member.profilePicture() }}" alt="">
@@ -42,21 +41,26 @@
                 <h3>Détails</h3>
             </div>
             <div class="col-8 divider m-0 mb-4"></div>
-           <div class="details-item col-5 ml-auto">
+           <div class="details-item col-lg-5 col-md-10 col-sm-10 col-10">
                 <h5 class="mr-2">Sexe : </h5>
                 {% if member.gender() == NULL%} <p class="text-muted font-italic">Non-renseigné</p> {% else %} <p>{{ member.gender() }}</p> {% endif %}
            </div>
-           <div class="details-item col-5 mr-auto">
+           <div class="details-item col-lg-5 col-md-10 col-sm-10 col-10">
                 <h5 class="mr-2">Département : </h5>
                 {% if member.county() == NULL%} <p class="text-muted font-italic">Non-renseigné</p> {% else %} <p>{{ member.county() }}</p> {% endif %}
            </div>
-           <div class="details-item col-5">
+           <div class="details-item col-lg-5 col-md-10 col-sm-10 col-10">
                 <h5 class="mr-2"> Centres d'intérêts : </h5>
                 {% if member.interests() == NULL%} <p class="text-muted font-italic">Non-renseignés</p> {% else %} <p>{{ member.interests() }}</p> {% endif %}
            </div>
-           <div class="details-item col-5">
+           <div class="details-item col-lg-5 col-md-10 col-sm-10 col-10">
                 <h5 class="mr-2"> Mon personnage fétiche : </h5>
                 {% if member.identifiedAs() == NULL%} <p class="text-muted font-italic">Non-renseigné</p> {% else %} <p>{{ member.identifiedAs() }}</p> {% endif %}
+           </div>
+           <div class="details-item col-lg-10 col-md-10 col-sm-10 col-10">
+            <h5 class="mr-2"> Ma citation favorite : </h5>
+            {% if member.favoriteCitation() == NULL%} <p class="text-muted font-italic">Non-renseigné</p> {% else %} <p>{{ member.favoriteCitation() }}</p> {% endif %}
+
            </div>
         </div>
     </div>

@@ -21,7 +21,7 @@
     <h2 class="row justify-content-center text-center mb-5">Modifier mon profil</h2>
     <form action="{{ BASE_URL }}modify-profile/{{ user.id() }}" id="modify-profile" class="text-left col-lg-8 mx-auto" method="POST" enctype="multipart/form-data" novalidate>
         <div class="form-row align-items-center justify-content-between col-lg-12">
-            <div class="form-group col-lg-4">
+            <div class="form-group col-lg-4 p-0">
                 <label for="gender">Genre : </label>
                 <select name="gender" id="gender" class="form-control form-control-sm">
                     <option class="text-muted" value="">Précisez votre genre</option>
@@ -30,7 +30,7 @@
                     <option value="Non-Binaire"{% if user.gender() == 'Non-Binaire' %}selected{% endif %}>Non-Binaire</option>
                 </select>        
             </div>
-            <div class="form-group col-lg-4">
+            <div class="form-group col-lg-4 p-0">
                 <label for="birthdate">Date de naissance : </label>
                 <input type="text" class="datetimepicker-input form-control form-control-sm" name="birthdate" id="datetimepicker5" data-toggle="datetimepicker" data-target="#datetimepicker5" autocomplete="off" {% if user.birthdate() is not null %}data-value = "{{ user.birthdate() }}"{% endif %}/>                          
             </div>

@@ -6,3 +6,13 @@ body  {
     width: 25px;
     height: auto;
 }
+
+footer {
+    a {
+        color: $blue;
+        &:hover {
+            text-decoration: none; 
+            color: $light-blue;
+        }
+    }
+}

@@ -97,12 +97,13 @@ $(function()  {
                     else if (error == 'modification_server_didnt_worked') {
                         $('form').prepend('<div class="alert alert-danger messages" role="alert">La modification n\'a pas pu être effectuée en base, merci de réessayer.</div>');
                     }
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
                 });
             }
             else if (data.status === 'success') {
                 tinyMCE.get('mytextarea').setContent(data.description);
                 $('form').prepend('<div class="alert alert-success messages" role="alert">Votre profil a bien été mis à jour.</div>');
-
+                $("html, body").animate({ scrollTop: 0 }, "slow");
             }
         });
 
