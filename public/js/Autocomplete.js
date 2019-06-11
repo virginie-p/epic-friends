@@ -40,7 +40,7 @@ $(function() {
         $.get(`https://geo.api.gouv.fr/departements?nom=${$('#department-search').val()}`, function(response) {
             if(response.length != 0) {
                 displaySuggestions(e.target, response, 'suggestions-list', 'suggestion');
-                $('#suggestions-list').css('top', ($('#department-search').outerHeight()));
+                $('#suggestions-list').css('top', ($('#department').outerHeight()));
             }
             else {
                 $('#suggestions-list').remove();

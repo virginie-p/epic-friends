@@ -101,16 +101,16 @@ footer a {
     text-decoration: none;
     color: #82c7d1; }
 
-.jumbotron {
+#member-profile .jumbotron {
   background-color: rgba(31, 72, 110, 0.541);
   color: white;
   height: 250px; }
-  .jumbotron h1 {
+  #member-profile .jumbotron h1 {
     position: absolute;
     bottom: 10px;
     left: 170px;
     color: #F2F4F3; }
-  .jumbotron .lead {
+  #member-profile .jumbotron .lead {
     font-size: 2rem; }
 
 #profile-jumbotron {
@@ -274,5 +274,32 @@ form {
 
 .form-control.password {
   width: 400px; }
+
+.search-jumbotron {
+  background-image: url(../images/search-engine-jumbotron.jpg);
+  background-size: cover; }
+
+#search-engine .irs--big .irs-bar {
+  top: 33px;
+  height: 12px;
+  background-color: #6C3B80;
+  border: 1px solid #2B193D;
+  background: linear-gradient(to bottom, #ffffff 0%, #4b2074 30%, #6C3B80 100%); }
+#search-engine .irs--big .irs-from, #search-engine .irs--big .irs-to, #search-engine .irs--big .irs-single {
+  color: white;
+  text-shadow: none;
+  padding: 1px 5px;
+  background-color: #6C3B80;
+  background: linear-gradient(to bottom, #6C3B80 0%, #4b2074 100%);
+  border-radius: 3px; }
+#search-engine .jumbotron {
+  background-color: rgba(43, 25, 61, 0.301);
+  color: #F2F4F3; }
+#search-engine h1.display-4 {
+  font-family: "Gabriela", serif;
+  font-size: 2.5rem; }
+#search-engine p.lead {
+  font-weight: 300;
+  font-style: italic; }
 
 /*# sourceMappingURL=main.css.map */

@@ -5,6 +5,7 @@ use App\Router\Router;
 use App\Controller\Controller;
 use App\Controller\HomeController;
 use App\Controller\UserController;
+use App\Controller\ResearchController;
 
 session_start();
 
@@ -58,6 +59,11 @@ $router->addRoute('GET', 'my-account', function(){
 $router->addRoute('GET|POST', 'modify-account/:id', function($id) {
     $user_controller = new UserController();
     $user_controller->modifyAccount($id);
+});
+
+$router->addRoute('GET', '/search-engine', function() {
+    $research_controller = new ResearchController();
+    $research_controller->displaySearchEngine();
 });
 
 $router->addRoute('GET', '/test', function(){echo 'Page de Test';});

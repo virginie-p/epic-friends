@@ -1,0 +1,86 @@
+{% extends "template.twig" %}
+
+{% block meta %}
+    
+{% endblock meta %}
+
+{% block title %}
+<title>Profil de {{ member.username() }}</title>
+{% endblock title %}
+
+{% block links %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/css/ion.rangeSlider.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.css">
+{% endblock links %}
+
+{% block menu %}{% include "/front/connectedMenu.twig" %}{% endblock %}
+
+{% block content %}
+<div class="container justify-content-center p-0 border" id="search-engine">
+  <div class="search-jumbotron">
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">Moteur de recherche</h1>
+        <p class="lead">Trouvez-vous des amis épiques ! </p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <h4 class="text-center">Sélectionnez vos filtres</h4>
+    <p class="text-muted text-center">Si certains filtres ne sont pas renseignés, ne vous inquiètez pas !</br> Nous ferons comme si ils n'avaient pas d'importance 😄</p>
+    <form action="{{ BASE_URL }}search-members" class="text-left col-lg-12 mx-auto" method="POST" enctype="post" novalidate>
+      <div class="form-row align-items-center justify-content-around col-lg-12">
+        <div class="form-group col-lg-5">
+          <label for="gender">Genre</label>
+          <select name="gender" id="" class="form-control form-control-sm">
+            <option value="">Sélectionnez un choix...</option>
+          </select>
+        </div>          
+          <div class="form-group col-lg-5" id="department">
+              <label for="county">Département : </label>
+              <input type="text" class="form-control form-control-sm" name="county" id="department-search" autocomplete="off">
+          </div>      
+        </div>
+      </div>
+      <div class="form-row align-items-center justify-content-around col-lg-12">
+        <div class="form-group col-lg-8">
+            <label for="age_range">Tranche d'âge</label>
+            <input type="text" class="js-range-slider" name="age_range" value=""/>
+        </div>
+      </div>
+      <div class="form-row align-items-center justify-content-around col-lg-12">
+        <div class="form-group col-5">
+            <label for="interests" class=""> Centres d'intérêts :</label>
+            <select id="interests" name="interests[]" multiple placeholder="Sélectionnez un ou plusieurs centres d'intérêts...">
+                <option value="">Sélectionnez un ou plusieurs centre(s) d'intérêt(s)</option>
+                {% for interest in interests %}
+                <option value={{ interest.id() }} {% for user_interest in user.interests() %} {% if user_interest == interest.interestName() %} selected {% endif %} {% endfor %}>{{ interest.interestName() }}</option>
+                {% endfor %}
+            </select>                
+        </div>
+      </div>
+    </form>
+    <div class="mb-4 text-center">
+        <button class="btn btn-primary mb-3" type="submit" form="search-member" id="search-button">Hocus Pocus</button>
+        <a role="button" class="btn btn-secondary mb-3" href="{{BASE_URL}}" >Annuler et retourner à l'accueil</a>
+    </div>
+  </div>
+</div>
+<div class="container pt-3 px-0 mt-3 border" id="search-engine">
+  <div class="container">
+      <h4 class="text-center">Observez le résultat !</h4>
+      <p class="text-muted font-italic d-flex align-items-end justify-content-center">Sélectionnez les filtres ci-dessus, appuyez sur 'Hocus Pocus' : vous verrez alors des profils apparaître comme par magie <img src="https://img.icons8.com/cotton/40/000000/witch.png"></p>
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/js/ion.rangeSlider.min.js"></script>
+    <script src="{{BASE_URL}}public/js/AgeRange.js"></script>
+    <script src="{{ BASE_URL }}public/js/Autocomplete.js"></script>
+    <script src="{{ BASE_URL }}public/js/standalone-selectize.js"></script>
+    <script src="{{ BASE_URL }}public/js/Selectize.js"></script>
+{% endblock scripts %}

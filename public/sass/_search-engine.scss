@@ -1,0 +1,39 @@
+.search-jumbotron {
+    background-image: url(../images/search-engine-jumbotron.jpg);
+    background-size: cover;
+}
+
+#search-engine {
+
+    .irs--big .irs-bar {
+        top: 33px;
+        height: 12px;
+        background-color: $purple;
+        border: 1px solid $dark-purple;
+        background: linear-gradient(to bottom, #ffffff 0%, rgb(75, 32, 116) 30%, $purple 100%);
+    }
+
+    .irs--big .irs-from, .irs--big .irs-to, .irs--big .irs-single {
+        color: white;
+        text-shadow: none;
+        padding: 1px 5px;
+        background-color: $purple;
+        background: linear-gradient(to bottom, $purple 0%, rgb(75, 32, 116) 100%);
+        border-radius: 3px;
+    }
+
+    .jumbotron {
+    background-color: rgba(43, 25, 61, 0.301);
+    color: $light;
+    }
+
+    h1.display-4 {
+        font-family: $Gabriela;
+        font-size: 2.5rem;
+    }
+
+    p.lead {
+        font-weight: 300;
+        font-style: italic;
+    }
+}
