@@ -5,7 +5,7 @@ use Emojione\Client;
 use Emojione\Ruleset;
 
 
-class User extends Entity {
+class User extends Entity implements \JsonSerializable {
     protected   $id,
                 $user_type_id,
                 $username,
@@ -23,6 +23,16 @@ class User extends Entity {
                 $profile_banner,
                 $identified_as,
                 $creation_date;
+
+    public function jsonSerialize() {
+        return [
+            'id' => $this->id,
+            'username' => $this->username,
+            'age' => $this->getAge(),
+            'interests' => $this->interests,
+            'profile_picture' => $this->profile_picture
+        ];
+    }
           
     /** GETTERS */
     public function id() {

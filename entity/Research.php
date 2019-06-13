@@ -5,7 +5,8 @@ class Research extends Entity {
     protected   $gender,
                 $county,
                 $interests = [],
-                $age_range;
+                $max_birthday,
+                $min_birthday;
 
     /**GETTERS */
 
@@ -18,11 +19,14 @@ class Research extends Entity {
     }
 
     public function interests() {
-        return $this->county;
+        return $this->interests;
     }
 
-    public function age() {
-        return $this->age;
+    public function maxBirthday() {
+        return $this->max_birthday;
+    }
+    public function minBirthday() {
+        return $this->min_birthday;
     }
 
     /**SETTERS */
@@ -39,8 +43,12 @@ class Research extends Entity {
         $this->interests = $interests;
     }
 
-    public function setAgeRange($age_range) {
-        $this->age = $age;
+    public function setMaxBirthday($max_birthday) {
+        $this->max_birthday = $max_birthday;
+    }
+
+    public function setMinBirthday($min_birthday) {
+        $this->min_birthday = $min_birthday;
     }
 }
 

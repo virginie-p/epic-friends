@@ -34,7 +34,7 @@ footer .btn-secondary {
   color: #F2F4F3; }
 
 @media (min-width: 992px) {
-  #new-members .col-lg-3 {
+  #new-members .col-lg-3, #search-results .col-lg-3 {
     max-width: 18%; } }
 .navbar-brand {
   font-family: Gabriela, serif;
@@ -301,5 +301,13 @@ form {
 #search-engine p.lead {
   font-weight: 300;
   font-style: italic; }
+
+#searched-members button.btn-primary, #searched-members a.btn-primary {
+  display: inline;
+  background-color: #A01129;
+  border-color: #A01129; }
+  #searched-members button.btn-primary:hover, #searched-members a.btn-primary:hover {
+    background-color: #c31432;
+    border-color: #A01129; }
 
 /*# sourceMappingURL=main.css.map */

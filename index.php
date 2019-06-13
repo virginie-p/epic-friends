@@ -51,12 +51,12 @@ $router->addRoute('GET|POST', '/modify-profile/:id', function($id) {
     $user_controller->modifyProfile($id);
 });
 
-$router->addRoute('GET', 'my-account', function(){
+$router->addRoute('GET', '/my-account', function(){
     $user_controller = new UserController();
     $user_controller->displayAccount();
 });
 
-$router->addRoute('GET|POST', 'modify-account/:id', function($id) {
+$router->addRoute('GET|POST', '/modify-account/:id', function($id) {
     $user_controller = new UserController();
     $user_controller->modifyAccount($id);
 });
@@ -66,6 +66,15 @@ $router->addRoute('GET', '/search-engine', function() {
     $research_controller->displaySearchEngine();
 });
 
-$router->addRoute('GET', '/test', function(){echo 'Page de Test';});
+$router->addRoute('GET|POST', '/search-members', function(){
+    $research_controller = new ResearchController();
+    $research_controller->displaySearchResults();
+});
+
+$router->addRoute('GET|POST', '/searched-members/p/:page_number', function($page_number) {
+    $research_controller = new ResearchController();
+    $research_controller->displayMoreResults($page_number);
+});
+
 
 $router->run();

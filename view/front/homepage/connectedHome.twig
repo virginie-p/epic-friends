@@ -14,7 +14,7 @@
 {% block menu %}{% include "/front/connectedMenu.twig" %}{% endblock %}
 
 {% block content %}
-<section class="" id="new-members">
+    <div class="container justify-content-center p-0 border" id="new-members">
         <div class="container-fluid py-5 text-center">
             <div class="row">
               <h2 class="col-12 mb-5">Les derniers inscrits</h2>
@@ -31,9 +31,9 @@
                             </div>
                         </div>
                     {% endif %}
-                {% endfor %}
-              
+                {% endfor %} 
             </div>
-    </section>
+        </div>
+    </div>
     
 {% endblock %}

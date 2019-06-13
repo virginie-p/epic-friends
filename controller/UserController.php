@@ -208,8 +208,7 @@ class UserController extends Controller {
     }
 
     public function modifyProfile($id) {
-        var_dump($_SESSION['user']);
-        die();
+
         if(isset($_SESSION['user'])) {
             $user_manager = new UserManager();
             $user = $user_manager->getMember($id);

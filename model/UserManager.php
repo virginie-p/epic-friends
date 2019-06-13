@@ -96,7 +96,7 @@ class UserManager extends Manager {
                             INNER JOIN project_5_users_profiles AS users_profiles
                             ON users_parameters.id = users_profiles.user_id
                             WHERE username = ?');
-        $req->execute(array($username));
+        $req->execute([$username]);
 
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'App\Entity\User');
 
