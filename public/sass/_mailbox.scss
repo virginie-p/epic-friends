@@ -1,0 +1,55 @@
+#mailbox {
+    #users-contacted {
+        height: 250px;
+        overflow-y: scroll;
+        >.container-fluid>a:first-child {
+            background: rgb(228, 228, 228);
+        }
+        a {
+            text-decoration: none;
+            border-bottom: solid 1px rgb(202, 202, 202);
+        }
+    }
+    #clicked-user {
+        #user-message {
+            height: 250px;
+            overflow-y: scroll;
+        }
+        #new-message {
+            height: 100px;
+        }
+    }
+
+    .rounded-profile-picture > img {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%
+    }
+
+    .tox-tinymce {
+        border-bottom: none;
+        border-left: none;
+        border-right: none;
+    }
+    .tox-statusbar {
+        border-bottom: none;
+    }
+
+    .clicked-member {
+        background : rgb(228, 228, 228);
+        width: auto;
+        max-width: 50%;
+    }
+
+    .user-message {
+        background: $light-blue;
+        border: solid 1px $blue;
+        width: auto;
+        max-width: 50%;
+    }
+    
+    .date {
+        font-size: 0.75rem;
+        width: 85px;
+    }
+}

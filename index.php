@@ -6,6 +6,7 @@ use App\Controller\Controller;
 use App\Controller\HomeController;
 use App\Controller\UserController;
 use App\Controller\ResearchController;
+use App\Controller\MailboxController;
 
 session_start();
 
@@ -76,5 +77,15 @@ $router->addRoute('GET|POST', '/searched-members/p/:page_number', function($page
     $research_controller->displayMoreResults($page_number);
 });
 
+$router->addRoute('GET', '/mailbox', function(){
+    $mailbox_controller = new MailboxController();
+    $mailbox_controller->displayMailbox();
+
+});
+
+$router->addRoute('GET|POST', '/send-message/user/:id', function($id){
+    $mailbox_controller = new MailboxController();
+    $mailbox_controller->sendMessage($id);
+});
 
 $router->run();

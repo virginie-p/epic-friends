@@ -1,0 +1,93 @@
+{% extends "template.twig" %}
+
+{% block meta %}
+    
+{% endblock meta %}
+
+{% block title %}
+<title>Moteur de recherche - Epic Friends</title>
+{% endblock title %}
+
+{% block links %}
+<script src="https://cdn.tiny.cloud/1/d5vv90gjbxrlkogbd4bmlpy6bbsfy9ml7c7dd5pjujl5ska4/tinymce/5/tinymce.min.js"></script>
+{% endblock links %}
+
+{% block menu %}{% include "/front/connectedMenu.twig" %}{% endblock %}
+
+{% block content %}
+<div class="container justify-content-center p-0 border">
+    <div class="container-fluid py-5 text-center">
+        <div class="row">
+          <h2 class="col-12 mb-4">Vos messages</h2>
+        </div>
+        <div class="row justify-content-center" id="mailbox">
+            <div class="container col-10 border border-secondary">
+                <div class="row border-bottom border-secondary" id="users-contacted">
+                    <div class="col-12 container-fluid">
+                            {% for user_contacted in users_contacted %}
+                            <a class="row py-2 align-items-center" href="{{ BASE_URL }}display-messages/{{ user_contacted.id() }}">
+                                <div class="rounded-profile-picture col-2">
+                                    <img class="border border-secondary" src="{{ BASE_URL }}public/images/profiles-pictures/{{ user_contacted.profilePicture() }}" alt="">
+                                </div>
+                                <div class="col-5">
+                                    {{user_contacted.username()}}
+                                </div>
+                                <div class="col-5">
+                                    {% for unread_message in unread_messages %} 
+                                        {% if user_contacted.id() == unread_message.senderId() %}
+                                            <span class="badge badge-danger">Message(s) non-lu(s)</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </a>
+                            
+                            {% endfor %}
+                    </div>
+                </div>
+                <div class="row" id="clicked-user">
+                    <div class="col-12 p-0">
+                        <div id="user-message" class="container">
+                                {% for message in last_user_contacted_messages %}
+                                    {% if message.senderId() == user.id() %}
+                                    <div class="row justify-content-end align-items-center">
+                                        <div class="p-1 m-3 rounded user-message text-left">
+                                            {{message.message()|raw}}
+                                        </div>
+                                        <div class="p-2 date">
+                                            {{message.creationDate()}}
+                                        </div>
+                                    </div>
+                                    {% else %}    
+                                    <div class="row justify-content-start align-items-center">
+                                        <div class="p-2 date">
+                                            {{message.creationDate()}}
+                                        </div>
+                                        <div class="p-1 m-3 rounded border clicked-member text-left">
+                                            {{message.message()|raw}}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                {% endfor %}
+                        </div>
+                        <form action="{{ BASE_URL }}send-message/user/{{ last_user_contacted_id }}" method="POST" id="send-new-message">
+                            <textarea class="p-0" id="message" name="message"></textarea>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="container col-10">
+            <div class="row text-center justify-content-center">
+                <button class="btn btn-primary my-2" type="submit" form="send-new-message" id="send-message">Envoyer</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ BASE_URL }}public/js/TinyMCE.js"></script>
+<script src="{{ BASE_URL }}public/js/Mailbox.js"></script>
+{% endblock scripts %}

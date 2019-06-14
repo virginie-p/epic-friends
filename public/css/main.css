@@ -310,4 +310,40 @@ form {
     background-color: #c31432;
     border-color: #A01129; }
 
+#mailbox #users-contacted {
+  height: 250px;
+  overflow-y: scroll; }
+  #mailbox #users-contacted > .container-fluid > a:first-child {
+    background: #e4e4e4; }
+  #mailbox #users-contacted a {
+    text-decoration: none;
+    border-bottom: solid 1px #cacaca; }
+#mailbox #clicked-user #user-message {
+  height: 250px;
+  overflow-y: scroll; }
+#mailbox #clicked-user #new-message {
+  height: 100px; }
+#mailbox .rounded-profile-picture > img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%; }
+#mailbox .tox-tinymce {
+  border-bottom: none;
+  border-left: none;
+  border-right: none; }
+#mailbox .tox-statusbar {
+  border-bottom: none; }
+#mailbox .clicked-member {
+  background: #e4e4e4;
+  width: auto;
+  max-width: 50%; }
+#mailbox .user-message {
+  background: #82c7d1;
+  border: solid 1px #50B9CA;
+  width: auto;
+  max-width: 50%; }
+#mailbox .date {
+  font-size: 0.75rem;
+  width: 85px; }
+
 /*# sourceMappingURL=main.css.map */
