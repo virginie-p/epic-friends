@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 use App\Entity\Image;
-require(__DIR__.'/../config.php');
 
 class Controller {
     protected $twig;

@@ -9,6 +9,7 @@
 {% endblock title %}
 
 {% block links %}
+<script src="https://cdn.tiny.cloud/1/d5vv90gjbxrlkogbd4bmlpy6bbsfy9ml7c7dd5pjujl5ska4/tinymce/5/tinymce.min.js"></script>
 {% endblock links %}
 
 {% block menu %}{% include "/front/connectedMenu.twig" %}{% endblock %}
@@ -25,10 +26,10 @@
                     <img src="{{ BASE_URL }}public/images/profiles-pictures/{{ member.profilePicture() }}" alt="">
                 </div>
                 <div id="user-buttons" >
-                    <a class="btn btn-1" role="button" href="{{ BASE_URL }}send-message/30">
+                    <button class="btn btn-1" data-toggle="modal" data-target="#send-message-modal">
                         <p class="m-0 mr-1">Envoyer un message</p>
                         <img src="{{ BASE_URL }}public/images/icons8-bulle-de-conversation-avec-points-50.png" alt="">
-                    </a>
+                    </button>
                     <button class="btn btn-2"  data-toggle="modal" data-target="#report-modal">
                         <p class="m-0 mr-1">Signaler cet utilisateur</p> 
                         <img src="{{ BASE_URL }}public/images/icons8-attention-50.png" alt="">
@@ -78,6 +79,31 @@
     </div>
 </section>
 
+<!-- Modal Send Message-->
+<div class="modal fade" id="send-message-modal" tabindex="-1" role="dialog" aria-labelledby="modal-title">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modal-title">Contacter cet utilisateur</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form class="modal-body" id="send-new-message" action="{{ BASE_URL }}send-message/user/{{ member.id() }}">
+                    <div class="form-group">
+                        <label for="message">Votre message : </label>
+                        <textarea class="form-control" type="text" name="message" id="message" required></textarea>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button class="btn btn-success active" id="send-message" type="submit" form="send-new-message">Confirmer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 <!-- Modal Signalisation-->
 <div class="modal fade" id="report-modal" tabindex="-1" role="dialog" aria-labelledby="modal-title">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -102,3 +128,8 @@
         </div>
     </div>
 {% endblock %}
+
+{% block scripts %}
+<script src="{{ BASE_URL }}public/js/TinyMCE.js"></script>
+<script src="{{ BASE_URL }}public/js/FirstMail.js"></script>
+{% endblock scripts %}

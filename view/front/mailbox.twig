@@ -25,7 +25,7 @@
                 <div class="row border-bottom border-secondary" id="users-contacted">
                     <div class="col-12 container-fluid">
                             {% for user_contacted in users_contacted %}
-                            <a class="row py-2 align-items-center" href="{{ BASE_URL }}display-messages/{{ user_contacted.id() }}">
+                            <a class="row py-2 align-items-center user-conversation" href="{{ BASE_URL }}display-messages/{{ user_contacted.id() }}" data-user-id="{{ user_contacted.id }}">
                                 <div class="rounded-profile-picture col-2">
                                     <img class="border border-secondary" src="{{ BASE_URL }}public/images/profiles-pictures/{{ user_contacted.profilePicture() }}" alt="">
                                 </div>
@@ -46,10 +46,10 @@
                 </div>
                 <div class="row" id="clicked-user">
                     <div class="col-12 p-0">
-                        <div id="user-message" class="container">
+                        <div id="user-messages" class="container" data-user-id="{{ last_user_contacted_id }}">
                                 {% for message in last_user_contacted_messages %}
                                     {% if message.senderId() == user.id() %}
-                                    <div class="row justify-content-end align-items-center">
+                                    <div class="row justify-content-end align-items-center"  data-message-id="{{ message.id() }}">
                                         <div class="p-1 m-3 rounded user-message text-left">
                                             {{message.message()|raw}}
                                         </div>
@@ -58,7 +58,7 @@
                                         </div>
                                     </div>
                                     {% else %}    
-                                    <div class="row justify-content-start align-items-center">
+                                    <div class="row justify-content-start align-items-center" data-message-id="{{ message.id() }}">
                                         <div class="p-2 date">
                                             {{message.creationDate()}}
                                         </div>

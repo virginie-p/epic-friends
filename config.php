@@ -11,4 +11,8 @@ define('profile_picture_folder', 'profiles-pictures');
 define('profile_banner_width', 1138);
 define('profile_banner_height', 250);
 define('profile_banner_folder', 'profiles-banners');
+
+
+/**Website Timezone */
+define('TIMEZONE', 'Europe/Paris');
 ?>

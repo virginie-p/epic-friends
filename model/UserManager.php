@@ -21,7 +21,7 @@ class UserManager extends Manager {
                             );
 
         $affected_lines = $req->execute([
-            'user_type_id' => $user->userType(),
+            'user_type_id' => $user->userTypeId(),
             'username' => $user->username(),
             'password' => $user->password(),
             'email' => $user->email()
@@ -47,6 +47,8 @@ class UserManager extends Manager {
                 'profile_picture'=> $user->profilePicture()
             ]);
         }
+
+
         return $affected_lines;
     }
 

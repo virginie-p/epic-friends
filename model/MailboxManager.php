@@ -86,4 +86,24 @@ class MailboxManager extends Manager {
 
         return $result;
     }
+
+    public function getUserNewMessages($member_id, $user_id, $last_message_id) {
+        $db = $this->MySQLConnect();
+        $req = $db->prepare('SELECT * FROM project_5_messages 
+                            WHERE ((sender_id = :member_id AND recipient_id = :user_id) 
+                                   OR (sender_id = :user_id AND recipient_id = :member_id))
+                                   AND id > :last_message_id
+                            ORDER BY creation_date ASC');
+        $req->execute([
+            'last_message_id'=> $last_message_id,
+            'member_id' => $member_id,
+            'user_id' => $user_id,
+        ]);
+
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'App\Entity\Mail');
+        $result = $req->fetchAll();
+
+        return $result;
+
+    }
 }

@@ -1,12 +1,15 @@
 <?php
 
 require 'composer/vendor/autoload.php';
+require 'config.php';
 use App\Router\Router;
 use App\Controller\Controller;
 use App\Controller\HomeController;
 use App\Controller\UserController;
 use App\Controller\ResearchController;
 use App\Controller\MailboxController;
+
+date_default_timezone_set(TIMEZONE);
 
 session_start();
 
@@ -80,12 +83,21 @@ $router->addRoute('GET|POST', '/searched-members/p/:page_number', function($page
 $router->addRoute('GET', '/mailbox', function(){
     $mailbox_controller = new MailboxController();
     $mailbox_controller->displayMailbox();
-
 });
 
 $router->addRoute('GET|POST', '/send-message/user/:id', function($id){
     $mailbox_controller = new MailboxController();
     $mailbox_controller->sendMessage($id);
+});
+
+$router->addRoute('GET', '/get-new-messages/:user_id/from-message/:last_message_id', function($user_id, $last_message_id) {
+    $mailbox_controller = new MailboxController();
+    $mailbox_controller->getUserNewMessages($user_id, $last_message_id);
+});
+
+$router->addRoute('GET', 'display-messages/:member_id', function($member_id) {
+    $mailbox_controller = new MailboxController();
+    $mailbox_controller->displayMessage($member_id);
 });
 
 $router->run();

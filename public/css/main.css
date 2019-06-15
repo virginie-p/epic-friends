@@ -318,7 +318,7 @@ form {
   #mailbox #users-contacted a {
     text-decoration: none;
     border-bottom: solid 1px #cacaca; }
-#mailbox #clicked-user #user-message {
+#mailbox #clicked-user #user-messages {
   height: 250px;
   overflow-y: scroll; }
 #mailbox #clicked-user #new-message {

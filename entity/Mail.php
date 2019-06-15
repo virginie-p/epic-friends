@@ -4,14 +4,30 @@ namespace App\Entity;
 use Emojione\Client;
 use Emojione\Ruleset;
 
-class Mail extends Entity {
-    protected $sender_id,
+class Mail extends Entity implements \JsonSerializable {
+    protected $id,
+              $sender_id,
               $recipient_id,
               $message = NULL,
               $opened_by_recipient,
               $creation_date; 
 
+    public function jsonSerialize() {
+        return [
+            'id' => $this->id,
+            'sender_id' => $this->sender_id,
+            'recipient_id' => $this->recipient_id,
+            'message' => $this->message,
+            'opened_by_recipient' => $this->opened_by_recipient,
+            'creation_date' => $this->creation_date
+        ];
+    }
+
     /**GETTERS */
+
+    public function id() {
+        return $this->id;
+    }
 
     public function senderId() {
         return $this->sender_id;
@@ -38,6 +54,10 @@ class Mail extends Entity {
     }
 
     /**SETTERS */
+
+    public function setId($id) {
+        $this->id = $id;
+    }
 
     public function setSenderId($sender_id) {
         $this->sender_id = $sender_id;

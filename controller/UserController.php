@@ -43,7 +43,6 @@ class UserController extends Controller {
             }
 
             $birthdate = \DateTime::createFromFormat('j/m/Y', $_POST['birthdate']);
-            $birthdate->format('Y-m-d');
 
             $actual_date = new \Datetime();
             $datediff = $actual_date->diff($birthdate);
@@ -54,11 +53,11 @@ class UserController extends Controller {
             }
             
             $user_data = array(
-                'user_type' => 5,
+                'user_type_id' => 5,
                 'username' => $_POST['subscribe-username'],
                 'password' => password_hash($_POST['subscribe-password'], PASSWORD_DEFAULT),
                 'email' => $_POST['email'],
-                'birthdate' => $birthdate->format('Y-m-d')
+                'birthdate' => $birthdate->format('Y-m-d H:i:s')
             );
 
             $image_input_name = 'profile-picture';
@@ -83,6 +82,7 @@ class UserController extends Controller {
 
             if(empty($errors)) {
                 $new_user = new User($user_data);
+
                 $affected_lines = $user_manager->addMember($new_user);
 
                 if (!$affected_lines) {

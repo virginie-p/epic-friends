@@ -12,17 +12,23 @@ class MailboxController extends Controller {
         if(isset($_SESSION['user'])) {
             $mailbox_manager = new MailboxManager(); 
             $users_contacted = $mailbox_manager->getUsersContacted($_SESSION['user']->id());
-            $mailbox_manager->openLastUserContactedMessages($users_contacted[0]->id(), $_SESSION['user']->id());
-            $unread_messages = $mailbox_manager->getUnreadMessages($_SESSION['user']->id());
-            
-            $last_user_contacted_messages = $mailbox_manager->getLastUserContactedMessages($users_contacted[0]->id(), $_SESSION['user']->id());
 
-            echo $this->twig->render('/front/mailbox.twig', [
-                'users_contacted' => $users_contacted,
-                'unread_messages' => $unread_messages,
-                'last_user_contacted_id' => $users_contacted[0]->id(),
-                'last_user_contacted_messages' => $last_user_contacted_messages
-            ]);
+            if(!empty($users_contacted)){
+                $mailbox_manager->openLastUserContactedMessages($users_contacted[0]->id(), $_SESSION['user']->id());
+                $unread_messages = $mailbox_manager->getUnreadMessages($_SESSION['user']->id());
+            
+                $last_user_contacted_messages = $mailbox_manager->getLastUserContactedMessages($users_contacted[0]->id(), $_SESSION['user']->id());
+                echo $this->twig->render('/front/mailbox.twig', [
+                    'users_contacted' => $users_contacted,
+                    'unread_messages' => $unread_messages,
+                    'last_user_contacted_id' => $users_contacted[0]->id(),
+                    'last_user_contacted_messages' => $last_user_contacted_messages
+                ]);
+            }
+            else {
+                echo $this->twig->render('/front/empty-mailbox.twig');
+            }
+            
         }
         else {
             echo $this->twig->render('/front/homepage/disconnectedHome.twig');
@@ -98,5 +104,22 @@ class MailboxController extends Controller {
             echo $this->twig->render('/front/homepage/disconnectedHome.twig');
         }
 
+    }
+
+    public function getUserNewMessages($member_id, $last_message_id) {
+        if(isset($_SESSION['user'])) {
+            $mailbox_manager = new MailboxManager();
+            $new_messages = $mailbox_manager->getUserNewMessages($member_id, $_SESSION['user']->id(), $last_message_id);
+            if (!empty($new_messages)){
+                echo json_encode([
+                    'status' => 'success',
+                    'new_messages' => $new_messages, 
+                    'user_id' => $_SESSION['user']->id()
+                ]);
+            }
+        }
+        else {
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig');
+        }
     }
 }
