@@ -25,14 +25,18 @@
                 <div class="row border-bottom border-secondary" id="users-contacted">
                     <div class="col-12 container-fluid">
                             {% for user_contacted in users_contacted %}
-                            <a class="row py-2 align-items-center user-conversation" href="{{ BASE_URL }}display-messages/{{ user_contacted.id() }}" data-user-id="{{ user_contacted.id }}">
+                            <a class="row py-2 align-items-center user-conversation {% if loop.first %}clicked-conversation{% endif %}" 
+                                href="{{ BASE_URL }}display-messages/{{ user_contacted.id() }}" data-user-id="{{ user_contacted.id() }}"
+                                {% if loop.first %}
+                                    data-last-message-id={% for message in last_user_contacted_messages %}{% if loop.last %}{{ message.id() }}{% endif %}{% endfor %}
+                                {% endif %}>
                                 <div class="rounded-profile-picture col-2">
                                     <img class="border border-secondary" src="{{ BASE_URL }}public/images/profiles-pictures/{{ user_contacted.profilePicture() }}" alt="">
                                 </div>
                                 <div class="col-5">
                                     {{user_contacted.username()}}
                                 </div>
-                                <div class="col-5">
+                                <div class="col-5 unread-notification">
                                     {% for unread_message in unread_messages %} 
                                         {% if user_contacted.id() == unread_message.senderId() %}
                                             <span class="badge badge-danger">Message(s) non-lu(s)</span>

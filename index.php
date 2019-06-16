@@ -97,7 +97,12 @@ $router->addRoute('GET', '/get-new-messages/:user_id/from-message/:last_message_
 
 $router->addRoute('GET', 'display-messages/:member_id', function($member_id) {
     $mailbox_controller = new MailboxController();
-    $mailbox_controller->displayMessage($member_id);
+    $mailbox_controller->displayMessages($member_id);
+});
+
+$router ->addRoute('GET', 'get-unread-messages', function() {
+    $mailbox_controller = new MailboxController(); 
+    $mailbox_controller->getNewMessages();
 });
 
 $router->run();

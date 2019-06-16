@@ -313,7 +313,7 @@ form {
 #mailbox #users-contacted {
   height: 250px;
   overflow-y: scroll; }
-  #mailbox #users-contacted > .container-fluid > a:first-child {
+  #mailbox #users-contacted .clicked-conversation {
     background: #e4e4e4; }
   #mailbox #users-contacted a {
     text-decoration: none;

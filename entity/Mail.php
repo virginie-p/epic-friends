@@ -7,6 +7,8 @@ use Emojione\Ruleset;
 class Mail extends Entity implements \JsonSerializable {
     protected $id,
               $sender_id,
+              $sender_profile_picture,
+              $sender_username,
               $recipient_id,
               $message = NULL,
               $opened_by_recipient,
@@ -16,8 +18,10 @@ class Mail extends Entity implements \JsonSerializable {
         return [
             'id' => $this->id,
             'sender_id' => $this->sender_id,
+            'sender_profile_picture' => $this->sender_profile_picture,
+            'sender_username' => $this->sender_username,
             'recipient_id' => $this->recipient_id,
-            'message' => $this->message,
+            'message' => $this->message(),
             'opened_by_recipient' => $this->opened_by_recipient,
             'creation_date' => $this->creation_date
         ];
@@ -31,6 +35,14 @@ class Mail extends Entity implements \JsonSerializable {
 
     public function senderId() {
         return $this->sender_id;
+    }
+
+    public function senderProfilePicture() {
+        return $this->sender_profile_picture;
+    }
+
+    public function senderUsername() {
+        return $this->sender_username;
     }
 
     public function recipientId() {

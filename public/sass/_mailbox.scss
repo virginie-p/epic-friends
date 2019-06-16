@@ -2,7 +2,7 @@
     #users-contacted {
         height: 250px;
         overflow-y: scroll;
-        >.container-fluid>a:first-child {
+        .clicked-conversation {
             background: rgb(228, 228, 228);
         }
         a {

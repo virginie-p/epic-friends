@@ -14,10 +14,10 @@ class MailboxController extends Controller {
             $users_contacted = $mailbox_manager->getUsersContacted($_SESSION['user']->id());
 
             if(!empty($users_contacted)){
-                $mailbox_manager->openLastUserContactedMessages($users_contacted[0]->id(), $_SESSION['user']->id());
+                $mailbox_manager->openUserContactedMessages($users_contacted[0]->id(), $_SESSION['user']->id());
                 $unread_messages = $mailbox_manager->getUnreadMessages($_SESSION['user']->id());
             
-                $last_user_contacted_messages = $mailbox_manager->getLastUserContactedMessages($users_contacted[0]->id(), $_SESSION['user']->id());
+                $last_user_contacted_messages = $mailbox_manager->getUserContactedMessages($users_contacted[0]->id(), $_SESSION['user']->id());
                 echo $this->twig->render('/front/mailbox.twig', [
                     'users_contacted' => $users_contacted,
                     'unread_messages' => $unread_messages,
@@ -53,6 +53,10 @@ class MailboxController extends Controller {
 
                 /**Check if message is correct */
                 if(!empty($_POST['message'])) {
+
+                    if($id ===  $_SESSION['user']->id()) {
+                        $errors[] = 'sender_equal_to_recipient';
+                    }
 
                     if(preg_match('#^[[:blank:]\n]+$#', $_POST['message'])) {
                         $errors[] = 'message_just_blanks';
@@ -109,13 +113,66 @@ class MailboxController extends Controller {
     public function getUserNewMessages($member_id, $last_message_id) {
         if(isset($_SESSION['user'])) {
             $mailbox_manager = new MailboxManager();
-            $new_messages = $mailbox_manager->getUserNewMessages($member_id, $_SESSION['user']->id(), $last_message_id);
+            $member_new_messages = $mailbox_manager->getUserNewMessages($member_id, $_SESSION['user']->id(), $last_message_id);
+            if (!empty($member_new_messages)){
+                echo json_encode([
+                    'status' => 'success',
+                    'new_messages' => $member_new_messages, 
+                    'user_id' => $_SESSION['user']->id()
+                ]);
+            }
+        }
+        else {
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig');
+        }
+    }
+
+    public function getNewMessages() {
+        if (isset($_SESSION['user'])) {
+            $mailbox_manager = new MailboxManager();
+            $new_messages = $mailbox_manager->getUnreadMessages($_SESSION['user']->id());
+
             if (!empty($new_messages)){
                 echo json_encode([
                     'status' => 'success',
                     'new_messages' => $new_messages, 
                     'user_id' => $_SESSION['user']->id()
                 ]);
+            }
+        }
+        else {
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig');  
+        }
+    }
+
+    public function displayMessages($member_id) {
+        if(isset($_SESSION['user'])) {
+            $user_manager = new UserManager();
+            $user = $user_manager->getMember($member_id);
+
+            if (!$user) {
+                $data['status'] = 'error';
+                $data['errors'] = ['user_not_found'];
+                echo json_encode($data);
+            }
+            else {
+                $mailbox_manager = new MailboxManager(); 
+                $mailbox_manager->openUserContactedMessages($member_id, $_SESSION['user']->id());
+                $messages = $mailbox_manager->getUserContactedMessages($member_id, $_SESSION['user']->id());
+
+                if(!$messages) {
+                    echo json_encode(['status' => 'error', 'error' => 'cannot_reach_database']);
+                }
+                else if (empty($messages)) {
+                    echo json_encode(['status' => 'no_messages']);
+                }
+                else if (!empty($messages)) {
+                    echo json_encode([
+                        'status' => 'success',
+                        'messages' => $messages,
+                        'user_id' => $_SESSION['user']->id()
+                    ]);
+                }
             }
         }
         else {

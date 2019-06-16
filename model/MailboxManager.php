@@ -9,21 +9,27 @@ class MailboxManager extends Manager {
 
     public function getUsersContacted($user_id) {
         $db = $this->MySQLConnect();
-        $req = $db->prepare('SELECT DISTINCT username,
-                                    profile_picture,
-                                    member_id AS id            
-                            FROM (SELECT sender_id as member_id, creation_date
-                                  FROM project_5_messages
-                                  WHERE recipient_id = :user_id
+        $req = $db->prepare('SELECT member_id AS id, username, profile_picture, creation_date      
+                            FROM (SELECT sender_id AS member_id, username, profile_picture, messages.creation_date
+                                  FROM project_5_messages AS messages
+                                  INNER JOIN project_5_users_parameters AS users_parameters ON users_parameters.id = messages.sender_id
+                                  INNER JOIN project_5_users_profiles AS users_profiles ON users_parameters.id = users_profiles.user_id
+                                  WHERE recipient_id = :user_id  AND messages.creation_date = (SELECT MAX(messages2.creation_date)
+                                                                                                FROM project_5_messages AS messages2
+                                                                                                WHERE messages2.sender_id = messages.sender_id)
                                   UNION
-                                  SELECT recipient_id as member_id, creation_date
-                                  FROM project_5_messages
-                                  WHERE sender_id = :user_id) 
-                            AS members_contacted 
-                            INNER JOIN project_5_users_parameters as users_parameters ON users_parameters.id = member_id
-                            INNER JOIN project_5_users_profiles AS users_profiles ON users_parameters.id = users_profiles.user_id
-                            ORDER BY members_contacted.creation_date DESC
-                            ');
+                                  SELECT recipient_id AS member_id, username, profile_picture, messages.creation_date
+                                  FROM project_5_messages AS messages
+                                  INNER JOIN project_5_users_parameters as users_parameters ON users_parameters.id = messages.recipient_id
+                                  INNER JOIN project_5_users_profiles AS users_profiles ON users_parameters.id = users_profiles.user_id
+                                  WHERE sender_id = :user_id AND messages.creation_date = (SELECT MAX(messages2.creation_date)
+                                                                                            FROM project_5_messages AS messages2
+                                                                                            WHERE messages2.recipient_id = messages.recipient_id))
+                            AS members_contacted
+                            WHERE creation_date = (SELECT MAX(messages2.creation_date)
+                                                    FROM project_5_messages AS messages2
+                                                    WHERE (messages2.recipient_id = members_contacted.member_id OR messages2.sender_id = members_contacted.member_id))
+                            ORDER BY members_contacted.creation_date DESC');
 
         $req->execute(['user_id' => $user_id]);
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'App\Entity\User');
@@ -36,19 +42,31 @@ class MailboxManager extends Manager {
 
     public function getUnreadMessages($user_id) {
         $db = $this->MySQLConnect();
-        $req = $db->prepare('SELECT sender_id
-                            FROM project_5_messages
-                            WHERE recipient_id = :user_id AND opened_by_recipient = 0');
+
+        $req = $db->prepare('SELECT sender_id,
+                                    messages.id AS id,
+                                    recipient_id, 
+                                    users_parameters.username AS sender_username,
+                                    users_profiles.profile_picture AS sender_profile_picture,
+                                    messages.creation_date
+                            FROM project_5_messages AS messages
+                            INNER JOIN project_5_users_parameters AS users_parameters ON messages.sender_id = users_parameters.id
+                            INNER JOIN project_5_users_profiles AS users_profiles ON messages.sender_id = users_profiles.user_id
+                            WHERE recipient_id = :user_id AND opened_by_recipient = 0 AND messages.creation_date = (SELECT MAX(messages2.creation_date)
+                                                                                                                    FROM project_5_messages AS messages2
+                                                                                                                    WHERE messages2.sender_id = messages.sender_id)
+                            ORDER BY messages.id DESC');
         $req->execute(['user_id' => $user_id]);
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'App\Entity\Mail');
         $result = $req->fetchAll();
-
         return $result;
     }
 
-    public function getLastUserContactedMessages($contacted_user_id, $user_id) {
+    public function getUserContactedMessages($contacted_user_id, $user_id) {
         $db = $this->MySQLConnect();
-        $req = $db->prepare('SELECT * FROM project_5_messages WHERE (sender_id = :contacted_user_id AND recipient_id = :user_id) OR (sender_id = :user_id AND recipient_id = :contacted_user_id) ORDER BY creation_date ASC');
+        $req = $db->prepare('SELECT * FROM project_5_messages 
+                            WHERE (sender_id = :contacted_user_id AND recipient_id = :user_id) OR (sender_id = :user_id AND recipient_id = :contacted_user_id) 
+                            ORDER BY creation_date ASC');
         $req->execute([
             'contacted_user_id'=> $contacted_user_id,
             'user_id' => $user_id
@@ -56,13 +74,13 @@ class MailboxManager extends Manager {
 
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'App\Entity\Mail');
         $result = $req->fetchAll();
-        // var_dump($result);
-        // die;
+        // $req->debugDumpParams();
+        // die();
 
         return $result;
     }
 
-    public function openLastUserContactedMessages($contacted_user_id, $user_id) {
+    public function openUserContactedMessages($contacted_user_id, $user_id) {
         $db = $this->MySQLConnect();
         $req = $db->prepare('UPDATE project_5_messages SET opened_by_recipient = 1 WHERE recipient_id = :user_id AND sender_id = :contacted_user_id');
         $result = $req->execute([
@@ -87,16 +105,15 @@ class MailboxManager extends Manager {
         return $result;
     }
 
-    public function getUserNewMessages($member_id, $user_id, $last_message_id) {
+    public function getUserNewMessages($contacted_user_id, $user_id, $last_message_id) {
         $db = $this->MySQLConnect();
         $req = $db->prepare('SELECT * FROM project_5_messages 
-                            WHERE ((sender_id = :member_id AND recipient_id = :user_id) 
-                                   OR (sender_id = :user_id AND recipient_id = :member_id))
+                            WHERE ((sender_id = :contacted_user_id AND recipient_id = :user_id) OR (sender_id = :user_id AND recipient_id = :contacted_user_id))
                                    AND id > :last_message_id
                             ORDER BY creation_date ASC');
         $req->execute([
             'last_message_id'=> $last_message_id,
-            'member_id' => $member_id,
+            'contacted_user_id' => $contacted_user_id,
             'user_id' => $user_id,
         ]);
 
