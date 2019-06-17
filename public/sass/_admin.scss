@@ -1,0 +1,13 @@
+.admin-table {
+    a:hover {
+        text-decoration: none;
+    }
+
+    thead th, th, td {
+        vertical-align: middle;
+    }
+
+    #report-reason-table-col {
+        width: 50%;
+    }
+}

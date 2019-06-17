@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 use App\Entity\User;
+use App\Entity\Report;
 use App\Model\UserManager;
 use Emojione\Client;
 use Emojione\Ruleset;
@@ -455,7 +456,6 @@ class UserController extends Controller {
                 $errors = [];
                 $account_data['id'] = $id;
 
-
                 /** Check if the pseudo is correct */
                 if (!empty($_POST['username'])) {
                     $members = $user_manager->getMembers();
@@ -477,12 +477,10 @@ class UserController extends Controller {
                     if(!in_array('username_already_used', $errors) || !in_array('username_not_matching_regex', $errors) || !in_array('username_too_long', $errors)) {
                         $account_data['username'] = $_POST['username'];
                     }
-                    
                 }
                 else {
                     $account_data['username'] = $user->username();
                 }
-
 
                 /** Check if the password is correct */
                 if(!empty($_POST['new-password'])) {
@@ -547,12 +545,10 @@ class UserController extends Controller {
                     echo json_encode($data);
                 }
             }
-
-
         }
         else {
             echo $this->twig->render('/front/homepage/disconnectedHome.twig');
         }
-
     }
+
 }

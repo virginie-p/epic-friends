@@ -8,6 +8,8 @@ use App\Controller\HomeController;
 use App\Controller\UserController;
 use App\Controller\ResearchController;
 use App\Controller\MailboxController;
+use App\Controller\AdminController;
+use App\Controller\ReportController;
 
 date_default_timezone_set(TIMEZONE);
 
@@ -95,14 +97,29 @@ $router->addRoute('GET', '/get-new-messages/:user_id/from-message/:last_message_
     $mailbox_controller->getUserNewMessages($user_id, $last_message_id);
 });
 
-$router->addRoute('GET', 'display-messages/:member_id', function($member_id) {
+$router->addRoute('GET', '/display-messages/:member_id', function($member_id) {
     $mailbox_controller = new MailboxController();
     $mailbox_controller->displayMessages($member_id);
 });
 
-$router->addRoute('GET', 'get-unread-messages', function() {
+$router->addRoute('GET', '/get-unread-messages', function() {
     $mailbox_controller = new MailboxController(); 
     $mailbox_controller->getNewMessages();
+});
+
+$router->addRoute('GET', '/admin', function() {
+    $admin_controller = new AdminController();
+    $admin_controller->displayAdmin();
+});
+
+$router->addRoute('GET|POST', '/report-member/:id', function($id){
+    $report_controller = new ReportController();
+    $report_controller->reportMember($id);
+});
+
+$router->addRoute('GET', '/display-reports/:member_id', function($member_id) {
+    $admin_controller = new AdminController();
+    $admin_controller->displayReports($member_id);
 });
 
 $router->run();

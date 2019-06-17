@@ -11,8 +11,6 @@ class User extends Entity implements \JsonSerializable {
                 $username,
                 $password,
                 $email,
-                $firstname,
-                $lastname,
                 $birthdate,
                 $gender,
                 $county,
@@ -22,6 +20,7 @@ class User extends Entity implements \JsonSerializable {
                 $profile_picture,
                 $profile_banner,
                 $identified_as,
+                $number_of_reports,
                 $creation_date;
 
     public function jsonSerialize() {
@@ -53,14 +52,6 @@ class User extends Entity implements \JsonSerializable {
 
     public function email() {
         return $this->email;
-    }
-
-    public function firstname()  {
-        return $this->firstname;
-    }
-
-    public function lastname() {
-        return $this->lastname;
     }
 
     public function birthdate() {
@@ -101,6 +92,10 @@ class User extends Entity implements \JsonSerializable {
         return $this->identified_as;
     }
 
+    public function numberOfReports() {
+        return $this->number_of_reports;
+    }
+
     public function creationDate() {
         return $this->creation_date;
     }
@@ -124,14 +119,6 @@ class User extends Entity implements \JsonSerializable {
 
     public function setEmail($email) {
         $this->email = $email;
-    }
-
-    public function setFirstname($firstname){
-        $this->firstname = $firstname;
-    }
-
-    public function setLastname($lastname) {
-        $this->lastname = $lastname;
     }
 
     public function setBirthdate($birthdate) {
@@ -168,6 +155,10 @@ class User extends Entity implements \JsonSerializable {
 
     public function setIdentifiedAs($identified_as) {
         $this->identified_as = $identified_as;
+    }
+
+    public function setNumberOfReports(int $number_of_reports) {
+        $this->number_of_reports = $number_of_reports;
     }
 
     public function setCreationDate($creation_date) {

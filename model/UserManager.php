@@ -3,6 +3,7 @@
 namespace App\Model;
 use App\Entity\User;
 use App\Entity\Interest;
+use App\Entity\Report;
 use \PDO;
 
 class UserManager extends Manager {
@@ -54,20 +55,20 @@ class UserManager extends Manager {
 
     public function getMembers() {
         $db = $this->MySQLConnect();
-        $req = $db->query('SELECT   users_parameters.id,
-                                    user_type_id,
-                                    username,
-                                    password,
-                                    firstname,
-                                    lastname,
-                                    email,
-                                    profile_picture,
-                                    description, 
-                                    DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%i\') AS creation_date
+        $req = $db->query('SELECT users_parameters.id,
+                                  user_type_id,
+                                  username,
+                                  password,
+                                  email,
+                                  profile_picture,
+                                  description,
+                                  (SELECT COUNT(*) FROM project_5_users_reports WHERE users_parameters.id = reported_user_id) AS number_of_reports,
+                                  DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%i\') AS creation_date
                             FROM project_5_users_parameters AS users_parameters
-                            INNER JOIN project_5_users_profiles AS users_profiles
+                            LEFT JOIN project_5_users_profiles AS users_profiles
                             ON users_parameters.id = users_profiles.user_id
-                            WHERE user_type_id = 5');
+                            WHERE user_type_id = 5
+                            ORDER BY number_of_reports DESC');
 
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'App\Entity\User');
 
@@ -288,6 +289,22 @@ class UserManager extends Manager {
             'id' => $user_data['id']
         ]);
         
+        return $result;
+    }
+
+    public function reportMember(Report $report) {
+        $db = $this->MySQLConnect();
+        $req = $db->prepare('INSERT INTO project_5_users_reports(reported_user_id,
+                                                                 informer_user_id,
+                                                                 report_reason)
+                            VALUES (:reported_user_id,
+                                    :informer_user_id,
+                                    :report_reason)');
+                                    
+        $result = $req->execute(['reported_user_id' => $report->reportedUserId(),
+                                 'informer_user_id'=> $report->informerUserId(),
+                                 'report_reason' => $report->reportReason()
+                                ]);
         return $result;
     }
 }

@@ -25,6 +25,7 @@
                 <div id="profile-picture">
                     <img src="{{ BASE_URL }}public/images/profiles-pictures/{{ member.profilePicture() }}" alt="">
                 </div>
+                {% if user.userTypeID() == 5 %}
                 <div id="user-buttons" >
                     <button class="btn btn-1" data-toggle="modal" data-target="#send-message-modal">
                         <p class="m-0 mr-1">Envoyer un message</p>
@@ -35,6 +36,7 @@
                         <img src="{{ BASE_URL }}public/images/icons8-attention-50.png" alt="">
                     </button>
                 </div>
+                {% endif %}
             </div>        
         </div>
         <div id="member-basics" class="row justify-content-center">
@@ -114,7 +116,7 @@
                   <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form class="modal-body" id="report-member" action="{{ BASE_URL}}report-member/30">
+                <form class="modal-body" id="report-member" action="{{ BASE_URL }}report-member/30">
                     <div class="form-group">
                         <label for="report-reason">Raison du signalement : </label>
                         <textarea class="form-control" type="text" name="report-reason" id="report-reason" required></textarea>
@@ -132,4 +134,5 @@
 {% block scripts %}
 <script src="{{ BASE_URL }}public/js/TinyMCE.js"></script>
 <script src="{{ BASE_URL }}public/js/FirstMail.js"></script>
+<script src="{{ BASE_URL }}public/js/ReportMember.js"></script>
 {% endblock scripts %}

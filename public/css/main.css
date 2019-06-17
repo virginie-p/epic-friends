@@ -346,4 +346,11 @@ form {
   font-size: 0.75rem;
   width: 85px; }
 
+.admin-table a:hover {
+  text-decoration: none; }
+.admin-table thead th, .admin-table th, .admin-table td {
+  vertical-align: middle; }
+.admin-table #report-reason-table-col {
+  width: 50%; }
+
 /*# sourceMappingURL=main.css.map */
