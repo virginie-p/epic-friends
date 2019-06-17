@@ -95,7 +95,7 @@ class UserManager extends Manager {
                                     identified_as,
                                     DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%i\') AS creation_date
                             FROM project_5_users_parameters AS users_parameters
-                            INNER JOIN project_5_users_profiles AS users_profiles
+                            LEFT JOIN project_5_users_profiles AS users_profiles
                             ON users_parameters.id = users_profiles.user_id
                             WHERE username = ?');
         $req->execute([$username]);
@@ -203,7 +203,7 @@ class UserManager extends Manager {
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'App\Entity\User');
 
         $user = $req->fetch();
-
+        
         return $user;
     }
 
