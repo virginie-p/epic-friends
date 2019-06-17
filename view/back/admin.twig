@@ -34,7 +34,7 @@
             </thead>
             <tbody>
                 {% for member in members %}
-                <tr class="justify-content-center {% if member.numberOfReports() > 0 %} alert-warning {% endif %}">
+                <tr class="justify-content-center {% if member.numberOfReports() > 0 %} alert-warning {% endif %}" data-user-id="{{member.id()}}">
                     <th scope="row">{{ member.id() }}</th>
                     <td>{{ member.username() }}</td>
                     <td>{{ member.email() }}</td>
@@ -74,7 +74,7 @@
             </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <a class="btn btn-danger active" role="button">Confirmer</a>
+                    <a class="btn btn-danger active" id="delete-user" role="button">Confirmer</a>
                 </div>
             </div>
         </div>
@@ -83,5 +83,6 @@
 
 {% block scripts %}
 <script src="{{ BASE_URL }}public/js/Modal.js"></script>
+<script src="{{ BASE_URL }}public/js/DeleteUser.js"></script>
 <script src="{{ BASE_URL }}public/js/TinyMCE.js"></script>
 {% endblock scripts %}

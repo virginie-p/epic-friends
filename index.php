@@ -122,4 +122,9 @@ $router->addRoute('GET', '/display-reports/:member_id', function($member_id) {
     $admin_controller->displayReports($member_id);
 });
 
+$router->addRoute('GET', '/delete/user/:id', function($id) {
+    $admin_controller = new AdminController();
+    $admin_controller->deleteUser($id);
+});
+
 $router->run();

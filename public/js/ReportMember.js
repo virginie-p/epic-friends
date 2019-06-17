@@ -33,6 +33,12 @@ $(function(){
                 if (response.status === 'error') {
                     let errors = response.errors;
                     errors.forEach(error => {
+                        if(error == 'user_not_found') {
+                            $('.form-group').after('<div class="alert alert-danger message" role="alert">L\'utilisateur que vous souhaitez signaler n\'a pas été trouvé dans nos bases.</div>');
+                        }
+                        else if(error == 'user_not_reported') {
+                            $('.form-group').after('<div class="alert alert-danger message" role="alert">Le signalement de cet utilisateur n\'a pas fonctionné. Merci de bien vouloir réessayer.</div>');
+                        }
                     });
                 }
                 else if (response.status === 'success') {
