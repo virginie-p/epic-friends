@@ -107,30 +107,31 @@
         </div>
     </div>
 
-
+{% if member_reports_by_user == 0 %}
 <!-- Modal Signalisation-->
 <div class="modal fade" id="report-modal" tabindex="-1" role="dialog" aria-labelledby="modal-title">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="modal-title">Vous souhaitez signaler cet utilisateur</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
-                  <span aria-hidden="true">&times;</span>
-                  </button>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="modal-title">Vous souhaitez signaler cet utilisateur</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <form class="modal-body" id="report-member" action="{{ BASE_URL }}report-member/{{ member.id() }}">
+                <div class="form-group">
+                    <label for="report-reason">Raison du signalement : </label>
+                    <textarea class="form-control" type="text" name="report-reason" id="report-reason" required></textarea>
                 </div>
-                <form class="modal-body" id="report-member" action="{{ BASE_URL }}report-member/{{ member.id() }}">
-                    <div class="form-group">
-                        <label for="report-reason">Raison du signalement : </label>
-                        <textarea class="form-control" type="text" name="report-reason" id="report-reason" required></textarea>
-                    </div>
-                </form>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button class="btn btn-success active" role="button" type="submit" form="report-member">Confirmer</button>
-                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button class="btn btn-success active" role="button" type="submit" form="report-member">Confirmer</button>
             </div>
         </div>
     </div>
+</div>
+{% endif %}
 {% endblock %}
 
 {% block scripts %}

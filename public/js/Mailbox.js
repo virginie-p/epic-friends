@@ -26,7 +26,7 @@ $(function(){
                         $('#send-message').before('<div class="alert alert-danger messages col-12 p-1 mt-3" role="alert">Vous n\'avez pas renseigné de message à envoyer.</div>');
                     }
                     else if (error == 'sender_equals_recipient') {
-                        $('#send-message').before('<div class="alert alert-danger messages col-12 p-1 mt-3" role="alert">Vous ne pouvez pas vous envoyer de message à vous même ! </div>')
+                        $('#send-message').before('<div class="alert alert-danger messages col-12 p-1 mt-3" role="alert">Vous ne pouvez pas vous envoyer de message à vous même !</div>')
                     }
                     else if(error == 'user_not_found') {
                         $('#send-message').before('<div class="alert alert-danger messages col-12 p-1 mt-3" role="alert">Vous ne pouvez pas envoyer de message à cet utilisateur.</div>');
@@ -138,13 +138,7 @@ $(function(){
         })
         .done(function(response){
             let data = response;
-            if (data.status === 'error') {
-                let errors = data.errors;
-                errors.forEach(error => {
-
-                });
-            }
-            else if (data.status === 'success') {
+            if (data.status === 'success') {
                 $('#user-messages').html('');
                 data.messages.forEach(message => {
                     let messageDiv;

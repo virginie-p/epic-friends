@@ -15,7 +15,7 @@ $(function() {
                 let errors = response.errors;
                 errors.forEach(error => {
                     if(error == 'user_not_found') {
-                        $('h2').parent().after('<div class="alert alert-danger message" role="alert">L\'utilisateur que vous souhaitez signaler n\'a pas été trouvé dans nos bases.</div>');
+                        $('h2').parent().after('<div class="alert alert-danger message" role="alert">L\'utilisateur que vous souhaitez supprimer n\'a pas été trouvé dans nos bases.</div>');
                     }
                     else if(error == 'user_not_deleted') {
                         $('h2').parent().after('<div class="alert alert-danger message" role="alert">La suppression de cet utilisateur n\'a pas fonctionné. Merci de bien vouloir réessayer.</div>');

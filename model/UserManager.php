@@ -307,4 +307,35 @@ class UserManager extends Manager {
                                 ]);
         return $result;
     }
+
+    public function getRandomMembers() {
+        $db = $this->MySQLConnect();
+        $req = $db->query('SELECT users_parameters.id,
+                                  user_type_id,
+                                  username,
+                                  password,
+                                  email,
+                                  firstname,
+                                  lastname,
+                                  birthdate,
+                                  gender,
+                                  county,
+                                  favorite_citation,
+                                  profile_picture,
+                                  profile_banner,
+                                  description,
+                                  identified_as,
+                                  DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%i\') AS creation_date
+                           FROM project_5_users_parameters AS users_parameters
+                           INNER JOIN project_5_users_profiles AS users_profiles
+                           ON users_parameters.id = users_profiles.user_id
+                           ORDER BY RAND()
+                           LIMIT 4');
+
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'App\Entity\User');
+
+        $members = $req->fetchAll();
+
+        return $members;
+    }
 }
