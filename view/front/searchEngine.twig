@@ -39,40 +39,43 @@
             <option value="Non-binaire">Non-binaire</option>
           </select>
         </div>          
-          <div class="form-group col-lg-5" id="department">
-              <label for="county">Département : </label>
-              <input type="text" class="form-control form-control-sm" name="county" id="department-search" autocomplete="off">
-          </div>      
-        </div>
+        <div class="form-group col-lg-5" id="department">
+            <label for="county">Département : </label>
+            <input type="text" class="form-control form-control-sm" name="county" id="department-search" autocomplete="off">
+        </div>      
       </div>
       <div class="form-row align-items-center justify-content-around col-lg-12">
-        <div class="form-group col-lg-8">
-            <label for="age_range">Tranche d'âge</label>
-            <input type="text" class="js-range-slider" name="age_range" value=""/>
+          <div class="form-group col-lg-8">
+              <label for="age_range">Tranche d'âge</label>
+              <input type="text" class="js-range-slider" name="age_range" value=""/>
+          </div>
         </div>
-      </div>
-      <div class="form-row align-items-center justify-content-around col-lg-12">
-        <div class="form-group col-5">
-            <label for="interests" class=""> Centres d'intérêts :</label>
-            <select id="interests" name="interests[]" multiple placeholder="Sélectionnez un ou plusieurs centres d'intérêts...">
-                <option value="">Sélectionnez un ou plusieurs centre(s) d'intérêt(s)</option>
-                {% for interest in interests %}
-                <option value={{ interest.id() }} {% for user_interest in user.interests() %} {% if user_interest == interest.interestName() %} selected {% endif %} {% endfor %}>{{ interest.interestName() }}</option>
-                {% endfor %}
-            </select>                
+        <div class="form-row align-items-center justify-content-around col-lg-12">
+          <div class="form-group col-lg-5 col-md-8">
+              <label for="interests" class=""> Centres d'intérêts :</label>
+              <select id="interests" name="interests[]" multiple placeholder="Sélectionnez un ou plusieurs centres d'intérêts...">
+                  <option value="">Sélectionnez un ou plusieurs centre(s) d'intérêt(s)</option>
+                  {% for interest in interests %}
+                  <option value={{ interest.id() }} {% for user_interest in user.interests() %} {% if user_interest == interest.interestName() %} selected {% endif %} {% endfor %}>{{ interest.interestName() }}</option>
+                  {% endfor %}
+              </select>                
+          </div>
         </div>
+      </form>
+      <div class="mb-4 text-center">
+          <button class="btn btn-primary mb-3" type="submit" form="search-members" id="search-button">Hocus Pocus</button>
+          <a role="button" class="btn btn-secondary mb-3" href="{{BASE_URL}}">Annuler et retourner à l'accueil</a>
       </div>
-    </form>
-    <div class="mb-4 text-center">
-        <button class="btn btn-primary mb-3" type="submit" form="search-members" id="search-button">Hocus Pocus</button>
-        <a role="button" class="btn btn-secondary mb-3" href="{{BASE_URL}}">Annuler et retourner à l'accueil</a>
     </div>
   </div>
 </div>
 <div class="container py-3 px-0 mt-3 border" id="search-results">
   <div class="container-fluid">
       <h4 class="text-center">Observez le résultat !</h4>
-      <p class="text-muted font-italic d-flex align-items-end justify-content-center" id="help-search-text">Sélectionnez les filtres ci-dessus, appuyez sur 'Hocus Pocus' : vous verrez alors des profils apparaître comme par magie <img src="https://img.icons8.com/cotton/40/000000/witch.png"></p>
+      <div class="row text-muted font-italic d-flex align-items-end justify-content-center" id="help-search-text">
+        <p class="m-0 text-center">Sélectionnez les filtres ci-dessus, appuyez sur 'Hocus Pocus' : vous verrez alors des profils apparaître comme par magie </p>
+        <img src="https://img.icons8.com/cotton/40/000000/witch.png">
+      </div>
   </div>
 </div>
 

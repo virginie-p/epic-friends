@@ -70,7 +70,7 @@ $(function(){
         createMembersCards(data) {
             data.results.forEach(result => {
                 $('#searched-members').append(`
-                    <div class="card col-lg-3 p-0 mx-4 mb-4 member" >
+                    <div class="card col-lg-3 col-md-5 p-0 mx-4 mb-4 member" >
                         <img src="${baseUrl}/public/images/profiles-pictures/${result.profile_picture}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">${result.username}</h5>

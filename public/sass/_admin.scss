@@ -10,4 +10,10 @@
     #report-reason-table-col {
         width: 50%;
     }
+
+    @media all and (max-width: 575px) {
+        th, td {
+            width: 500px;
+        }
+    }
 }

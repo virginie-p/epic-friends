@@ -22,7 +22,7 @@
             <div class="row justify-content-center ">
                 {% for new_user in new_users %}
                     {% if new_user.id() != user.id() %}
-                        <div class="card col-lg-3 p-0 mx-4 mb-4" >
+                        <div class="card col-lg-3 col-md-4 p-0 mx-4 mb-4" >
                             <img src="{{ BASE_URL }}public/images/profiles-pictures/{{ new_user.profilePicture() }}" class="card-img-top" alt="...">
                             <div class="card-body">
                               <h5 class="card-title">{{ new_user.username() }}</h5>
