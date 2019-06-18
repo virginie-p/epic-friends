@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Report;
 use App\Model\UserManager;
+use App\Model\ReportManager;
 use Emojione\Client;
 use Emojione\Ruleset;
 
@@ -171,12 +172,20 @@ class UserController extends Controller {
         if(isset($_SESSION['user'])) {
             $user_manager = new UserManager();
             $member = $user_manager->getMember($id);
+            $report_manager = new ReportManager();
+            $user_nbr_of_reports = $report_manager->getMemberReportsByUser($id, $_SESSION['user']->id());
+            
+            // var_dump($member);
+            // die();
 
             if (!$member) {
                 header('HTTP/1.0 404 Not Found');
                 exit;
             } else {
-                echo $this->twig->render('front/memberProfile.twig', ['member' => $member]);
+                echo $this->twig->render('front/memberProfile.twig', [
+                    'member' => $member,
+                    'member_reports_by_user' => $user_nbr_of_reports[0]
+                ]);
             }
 
         }

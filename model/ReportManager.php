@@ -15,4 +15,18 @@ class ReportManager extends Manager {
 
         return $result;
     }
+
+    public function getMemberReportsByUser($member_id, $user_id) {
+        $db = $this->MySQLConnect();
+        $req = $db->prepare('SELECT COUNT(id) FROM project_5_users_reports WHERE reported_user_id = :member_id AND informer_user_id = :user_id');
+
+        $req->execute([
+            'member_id' => $member_id, 
+            'user_id' => $user_id
+        ]);
+
+        $result = $req->fetch();
+        return $result;
+
+    }
 }
