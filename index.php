@@ -137,4 +137,14 @@ $router->addRoute('GET', '/delete/interest/:id', function($id){
     $admin_controller->deleteInterest($id);
 });
 
+$router->addRoute('GET|POST', 'add-interest', function(){
+    $admin_controller = new AdminController();
+    $admin_controller->addInterest();
+});
+
+$router->addRoute('GET|POST', 'edit-interest/:id', function($id){
+    $admin_controller = new AdminController();
+    $admin_controller->editInterest($id);
+});
+
 $router->run();

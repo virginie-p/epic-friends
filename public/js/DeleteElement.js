@@ -1,7 +1,7 @@
 $(function() {
     $('a#delete-user, a#delete-interest').on('click', function(e){
         e.preventDefault();
-        $('.messages').remove();
+        $('.message').remove();
 
         $.ajax({
             url : $(e.target).attr('href'),

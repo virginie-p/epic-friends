@@ -356,4 +356,10 @@ form {
   .admin-table th, .admin-table td {
     width: 500px; } }
 
+.add-interest a {
+  color: #293132; }
+.add-interest a:hover {
+  color: #495057;
+  text-decoration: none; }
+
 /*# sourceMappingURL=main.css.map */

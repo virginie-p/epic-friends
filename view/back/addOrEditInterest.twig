@@ -1,0 +1,55 @@
+{% extends "template.twig" %}
+
+{% block meta %}
+    
+{% endblock meta %}
+
+{% block title %}
+<title>Ajout de centre d'intérêt</title>
+{% endblock title %}
+
+{% block links %}
+<script src="https://cdn.tiny.cloud/1/d5vv90gjbxrlkogbd4bmlpy6bbsfy9ml7c7dd5pjujl5ska4/tinymce/5/tinymce.min.js"></script>
+{% endblock links %}
+
+{% block menu %}{% include "front/connectedMenu.twig" %}{% endblock %}
+
+{% block content %}
+<div class="container justify-content-start p-0 border">
+    <div class="container-fluid py-5 text-center">
+        <div class="row">
+            <h2 class="col-12 mb-4">
+              {% if action == 'add' %} 
+                Ajouter un centre d'intérêt 
+              {% elseif action == 'edit'%}
+                Editer un centre d'intérêt
+              {% endif %}
+            </h2>  
+        </div>
+        <form action="{{ BASE_URL }}{{ action }}-interest/{% if action == 'edit'%}{{ interest.id() }}{% endif %}" class="text-left col-lg-8 mx-auto" id="{{ action }}-interest" method="POST" enctype="post" novalidate>
+            <div class="form-row align-items-center justify-content-center col-lg-12">
+                <div class="form-group">
+                    <label for="interest-name">Intitulé du centre d'intérêt: </label>
+                    <input type="text" class="form-control form-control-sm" name="interest-name" id="interest" value="{{interest.interestName()}}">
+                    <small id="interest-help" class="form-text text-muted">Le nom d'un centre d'intérêt ne doit pas dépasser 20 caractères.</small>
+                </div>            
+            </div>
+        </form>
+        <div class="mb-4 text-center">
+            <button class="btn btn-primary mb-3" type="submit" form="{{ action }}-interest" id="{{ action }}-interest-button">
+                  {% if action == 'add' %} 
+                    Ajouter
+                  {% elseif action == 'edit'%}
+                    Editer
+                  {% endif %}</button>
+            <a role="button" class="btn btn-secondary mb-3" href="{{BASE_URL}}/interests-management" >Annuler et retourner à la liste des centres d'intérêts</a>
+        </div>
+    
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ BASE_URL }}public/js/AddOrEditInterest.js"></script>
+<script src="{{ BASE_URL }}public/js/TinyMCE.js"></script>
+{% endblock scripts %}

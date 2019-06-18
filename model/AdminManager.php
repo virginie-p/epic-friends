@@ -41,8 +41,29 @@ class AdminManager extends Manager {
 
         $req->execute(['id' => $id]);
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'App\Entity\Interest');
-        $result = $req->fetchAll(); 
-        
+        $result = $req->fetch(); 
+
+        return $result;
+    }
+
+    public function addInterest($interest) {
+        $db = $this->MySQLConnect();
+        $req = $db->prepare('INSERT INTO project_5_interests(interest_name) VALUES (:interest_name)');
+
+        $result = $req->execute(['interest_name' => $interest]);
+
+        return $result;
+    }
+
+    public function editInterest(Interest $interest) {
+        $db = $this->MySQLConnect();
+        $req = $db->prepare('UPDATE project_5_interests SET interest_name = :interest_name WHERE id = :id');
+
+        $result = $req->execute([
+            'interest_name' => $interest->interestName(),
+            'id' => $interest->id()
+        ]);
+
         return $result;
     }
 }

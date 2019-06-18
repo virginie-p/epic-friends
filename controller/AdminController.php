@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 use App\Entity\User;
+use App\Entity\Interest;
 use App\Model\UserManager;
 use App\Model\AdminManager;
 use App\Model\ReportManager;
@@ -129,5 +130,116 @@ class AdminController extends Controller {
 
         }
     }
+
+    public function addInterest(){
+        if (isset($_SESSION['user']) && ($_SESSION['user']->userTypeId() == 4 || $_SESSION['user']->userTypeId() == 3)){
+            
+            if (isset($_POST['interest-name'])) {
+                $errors = [];
+                if(preg_match('#^[[:blank:]\n]+$#', $_POST['interest-name'])) {
+                    $errors[] = 'interest_name_just_blanks';
+                }
+                elseif(strlen($_POST['interest-name']) > 30) {
+                    $errors[] = 'interest_name_too_long';
+                }
+                else {
+                    $interest =  $_POST['interest-name'];
+                }
+
+                if (empty($errors)){
+                    $admin_manager = new AdminManager();
+                    $interest_added = $admin_manager->addInterest($interest);
+
+                    if(!$interest_added) {
+                        $data['status'] = 'error';
+                        $data['errors'] = ['action_did_not_workd'];
+                        echo json_encode($data);
+                    }
+                    else {
+                        $data['status'] = 'success';
+                        echo json_encode($data);
+                    }
+                }
+                else {
+                    $data['status'] = 'error';
+                    $data['errors'] = $errors;
+                    echo json_encode($data);
+                }
+
+            } else {
+                echo $this->twig->render('/back/addOrEditInterest.twig', ['action' => 'add']);
+            }
+        }
+        else {
+            $user_manager = new UserManager();
+            $geek_sample = $user_manager->getRandomMembers();
+            
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig',['geek_sample' => $geek_sample]);
+        
+        }
+    }
+
+    public function editInterest($id) {
+        
+        if (isset($_SESSION['user']) && ($_SESSION['user']->userTypeId() == 4 || $_SESSION['user']->userTypeId() == 3)){
+            $admin_manager = new AdminManager();
+            $interest = $admin_manager->getInterest($id);
+ 
+            if (!$interest) {
+                $data['status'] = 'error';
+                $data['errors'] = ['interest_not_found'];
+                echo json_encode($data);
+            }
+            else {
+                if (isset($_POST['interest-name'])) {
+                    $errors = [];
+                    if(preg_match('#^[[:blank:]\n]+$#', $_POST['interest-name'])) {
+                        $errors[] = 'interest_name_just_blanks';
+                    }
+                    elseif(strlen($_POST['interest-name']) > 30) {
+                        $errors[] = 'interest_name_too_long';
+                    }
+                    else {
+                        $interest_data['id'] = $id;
+                        $interest_data['interest_name'] =  $_POST['interest-name'];
+                    }
+
+                    if (empty($errors)){
+                        $interest = new Interest($interest_data);
+                        $admin_manager = new AdminManager();
+                        $interest_added = $admin_manager->editInterest($interest);
+
+                        if(!$interest_added) {
+                            $data['status'] = 'error';
+                            $data['errors'] = ['action_did_not_work'];
+                            echo json_encode($data);
+                        }
+                        else {
+                            $data['status'] = 'success';
+                            echo json_encode($data);
+                        }
+                    }
+                    else {
+                        $data['status'] = 'error';
+                        $data['errors'] = $errors;
+                        echo json_encode($data);
+                    }
+
+                } else {
+                    echo $this->twig->render('/back/addOrEditInterest.twig', ['action' => 'edit', 'interest' => $interest]);
+                }
+            }
+        }
+        else {
+            $user_manager = new UserManager();
+            $geek_sample = $user_manager->getRandomMembers();
+            
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig',['geek_sample' => $geek_sample]);
+        
+        }
+        
+    
+    }
+
 
 }
