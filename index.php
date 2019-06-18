@@ -107,9 +107,9 @@ $router->addRoute('GET', '/get-unread-messages', function() {
     $mailbox_controller->getNewMessages();
 });
 
-$router->addRoute('GET', '/admin', function() {
+$router->addRoute('GET', '/users-management', function() {
     $admin_controller = new AdminController();
-    $admin_controller->displayAdmin();
+    $admin_controller->displayUsersManagement();
 });
 
 $router->addRoute('GET|POST', '/report-member/:id', function($id){
@@ -125,6 +125,11 @@ $router->addRoute('GET', '/display-reports/:member_id', function($member_id) {
 $router->addRoute('GET', '/delete/user/:id', function($id) {
     $admin_controller = new AdminController();
     $admin_controller->deleteUser($id);
+});
+
+$router->addRoute('GET', '/interests-management', function(){
+    $admin_controller = new AdminController();
+    $admin_controller->displayInterests();
 });
 
 $router->run();

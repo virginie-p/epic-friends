@@ -164,7 +164,10 @@ class UserController extends Controller {
             return $new_users;
             }
         else {
-            echo $this->twig->render('/front/homepage/disconnectedHome.twig');
+            $user_manager = new UserManager();
+            $geek_sample = $user_manager->getRandomMembers();
+            
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig',['geek_sample' => $geek_sample]);
         }
     }
 
@@ -190,7 +193,10 @@ class UserController extends Controller {
 
         }
         else {
-            echo $this->twig->render('/front/homepage/disconnectedHome.twig');
+            $user_manager = new UserManager();
+            $geek_sample = $user_manager->getRandomMembers();
+            
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig',['geek_sample' => $geek_sample]);
         }
 
         
@@ -213,7 +219,10 @@ class UserController extends Controller {
    
         }
         else {
-            echo $this->twig->render('/front/homepage/disconnectedHome.twig');
+            $user_manager = new UserManager();
+            $geek_sample = $user_manager->getRandomMembers();
+            
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig',['geek_sample' => $geek_sample]);
         }
     }
 
@@ -429,7 +438,10 @@ class UserController extends Controller {
         
         }
         else {
-            echo $this->twig->render('/front/homepage/disconnectedHome.twig');
+            $user_manager = new UserManager();
+            $geek_sample = $user_manager->getRandomMembers();
+            
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig',['geek_sample' => $geek_sample]);
         }
     }
 
@@ -446,7 +458,10 @@ class UserController extends Controller {
    
         }
         else {
-            echo $this->twig->render('/front/homepage/disconnectedHome.twig');
+            $user_manager = new UserManager();
+            $geek_sample = $user_manager->getRandomMembers();
+            
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig',['geek_sample' => $geek_sample]);
         }
     }
 
@@ -556,7 +571,10 @@ class UserController extends Controller {
             }
         }
         else {
-            echo $this->twig->render('/front/homepage/disconnectedHome.twig');
+            $user_manager = new UserManager();
+            $geek_sample = $user_manager->getRandomMembers();
+            
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig',['geek_sample' => $geek_sample]);
         }
     }
 

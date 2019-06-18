@@ -7,15 +7,34 @@ use App\Model\AdminManager;
 use App\Model\ReportManager;
 
 class AdminController extends Controller {
-    public function displayAdmin() {
+    public function displayUsersManagement() {
         if (isset($_SESSION['user']) && ($_SESSION['user']->userTypeId() == 4 || $_SESSION['user']->userTypeId() == 3)){
             $user_manager = new UserManager();
             $members = $user_manager->getMembers();
 
-            echo $this->twig->render('/back/admin.twig', ['members' => $members]);
+            echo $this->twig->render('/back/usersManagement.twig', ['members' => $members]);
         }
         else {
-            echo $this->twig->render('/front/homepage/disconnectedHome.twig');
+            $user_manager = new UserManager();
+            $geek_sample = $user_manager->getRandomMembers();
+            
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig',['geek_sample' => $geek_sample]);
+        }
+    }
+    
+    public function displayInterests() {
+        if (isset($_SESSION['user']) && ($_SESSION['user']->userTypeId() == 4 || $_SESSION['user']->userTypeId() == 3)){
+            $admin_manager = new AdminManager();
+            $interests = $admin_manager->getInterests();
+
+            echo $this->twig->render('/back/interestsManagement.twig', ['interests' => $interests]);
+
+        }
+        else {
+            $user_manager = new UserManager();
+            $geek_sample = $user_manager->getRandomMembers();
+            
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig',['geek_sample' => $geek_sample]);
         }
     }
 
@@ -31,7 +50,10 @@ class AdminController extends Controller {
 
         }
         else {
-            echo $this->twig->render('/front/homepage/disconnectedHome.twig');
+            $user_manager = new UserManager();
+            $geek_sample = $user_manager->getRandomMembers();
+            
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig',['geek_sample' => $geek_sample]);
 
         }
     }
@@ -64,7 +86,10 @@ class AdminController extends Controller {
             }
         }
         else {
-            echo $this->twig->render('/front/homepage/disconnectedHome.twig');
+            $user_manager = new UserManager();
+            $geek_sample = $user_manager->getRandomMembers();
+            
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig',['geek_sample' => $geek_sample]);
 
         }
     }

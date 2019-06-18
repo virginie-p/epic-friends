@@ -5,6 +5,14 @@ $(function() {
         let elementData = elementAttrID.split('-')
         let elementType = elementData[0];
         let elementID = elementData[1];
+        let message;
+
+        if ($(this).attr('data-type') == 'centre d\'intérêt'){
+            message = 'ce centre d\'intérêt';
+        }
+        else {
+            message = 'cet utilisateur';
+        }
     
         if ($(this).attr('data-action') == 'delete'){
             let modal = new Modal( 
@@ -12,7 +20,7 @@ $(function() {
                 elementType,
                 elementID,
                 'Confirmation de suppression',
-                '<p>Je souhaite définitivement supprimer cet utilisateur.</p><div class="alert alert-danger" role="alert">Attention, toute suppression est irréversible !</div>'
+                message
             );
             
             modal.addSpecificities();
@@ -39,7 +47,7 @@ $(function() {
             $('.modal').attr('id', this.action + 'Modal');
             $('.modal-footer>a').attr('href', (`${baseUrl}/${this.action}/${this.type}/${this.id}`));
             $('#modal-title').append(this.title);
-            $('.form-check').append(this.message);
+            $('.form-check').append(`<p>Je souhaite définitivement supprimer ${this.message}.</p><div class="alert alert-danger" role="alert">Attention, toute suppression est irréversible !</div>`);
         }
     
         deleteSpecificities() {
