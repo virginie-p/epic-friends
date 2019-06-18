@@ -93,4 +93,41 @@ class AdminController extends Controller {
 
         }
     }
+
+    public function deleteInterest($id) {
+        if (isset($_SESSION['user']) && ($_SESSION['user']->userTypeId() == 4 || $_SESSION['user']->userTypeId() == 3)){
+            $admin_manager = new AdminManager();
+            $interest = $admin_manager->getInterest($id);
+
+            if (!$interest) {
+                $data['status'] = 'error';
+                $data['errors'] = ['interest_not_found'];
+                echo json_encode($data);
+            }
+            else {
+                $admin_manager = new AdminManager();
+                $interest_deleted = $admin_manager->deleteInterest($id);
+                
+                if(!$interest_deleted) {
+                    $data['status'] = 'error';
+                    $data['errors'] = ['interest_not_deleted'];
+                    echo json_encode($data);
+                } 
+                else {
+                    echo json_encode([
+                        'status' => 'success',
+                        'interest_deleted' => $id,
+                    ]);
+                }
+            }
+        }
+        else {
+            $user_manager = new UserManager();
+            $geek_sample = $user_manager->getRandomMembers();
+            
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig',['geek_sample' => $geek_sample]);
+
+        }
+    }
+
 }

@@ -25,8 +25,9 @@ $(function() {
             
             modal.addSpecificities();
     
-            $('button[type="submit"], button[data-dismiss="modal"], .modal').click(function(e){
+            $('a[data-valid="modal"], button[data-dismiss="modal"]>span, button[data-dismiss="modal"], .modal').click(function(e){
                 if(e.currentTarget === e.target){
+                    $('#deleteModal').modal('hide');
                     modal.deleteSpecificities();
                 }
             });
@@ -51,6 +52,7 @@ $(function() {
         }
     
         deleteSpecificities() {
+            
             $('.modal').removeAttr('id');
             $('.modal-footer>a').removeAttr('href');
             $('#modal-title').empty();

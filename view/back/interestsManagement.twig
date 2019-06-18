@@ -40,7 +40,7 @@
                         <a href="{{ BASE_URL }}edit-interest/{{ interest.id() }}">
                             <img src="{{ BASE_URL }}public/images/modifier.png">
                         </a>
-                        <a data-toggle="modal" id="user-{{ interest.id() }}" data-action="delete" data-type="centre d'intérêt" href="#deleteModal">
+                        <a data-toggle="modal" id="interest-{{ interest.id() }}" data-action="delete" data-type="centre d'intérêt" href="#deleteModal">
                             <img src="https://img.icons8.com/plasticine/42/000000/delete.png">
                         </a>
                     </td>
@@ -68,7 +68,7 @@
             </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <a class="btn btn-danger active" id="delete-user" role="button">Confirmer</a>
+                    <a class="btn btn-danger active" id="delete-interest" data-valid="modal" role="button">Confirmer</a>
                 </div>
             </div>
         </div>
@@ -77,6 +77,6 @@
 
 {% block scripts %}
 <script src="{{ BASE_URL }}public/js/Modal.js"></script>
-<script src="{{ BASE_URL }}public/js/DeleteUser.js"></script>
+<script src="{{ BASE_URL }}public/js/DeleteElement.js"></script>
 <script src="{{ BASE_URL }}public/js/TinyMCE.js"></script>
 {% endblock scripts %}
