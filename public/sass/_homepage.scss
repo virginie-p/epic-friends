@@ -26,6 +26,10 @@ footer {
     background-color: $dark;
 }
 
+#concept:target, #members-sample:target {
+    padding-top: 45px;
+}
+
 section{
     i.fa-circle {
     color: $purple;
