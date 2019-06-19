@@ -158,7 +158,7 @@ class UserController extends Controller {
                 $new_users = $user_manager->getNewMembers($_SESSION['user']);
             }
             else {
-            $new_users = $user_manager->getNewCountyMembers($_SESSION['user']);
+                $new_users = $user_manager->getNewCountyMembers($_SESSION['user']);
             }
             
             return $new_users;
