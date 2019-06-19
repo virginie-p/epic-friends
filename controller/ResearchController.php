@@ -7,9 +7,17 @@ use App\Entity\Research;
 class ResearchController extends Controller {
 
     public function displaySearchEngine() {
-        $user_manager = new UserManager();
-        $interests_center = $user_manager->getInterests();
-        echo $this->twig->render('/front/searchEngine.twig', ['interests' => $interests_center]);
+        if(isset($_SESSION['user'])) {
+            $user_manager = new UserManager();
+            $interests_center = $user_manager->getInterests();
+            echo $this->twig->render('/front/searchEngine.twig', ['interests' => $interests_center]);
+        }
+        else {
+            $user_manager = new UserManager();
+            $geek_sample = $user_manager->getRandomMembers();
+            
+            echo $this->twig->render('/front/homepage/disconnectedHome.twig',['geek_sample' => $geek_sample]);
+        }
     }
 
     public function displaySearchResults() {
@@ -100,13 +108,14 @@ class ResearchController extends Controller {
                 echo json_encode($data);
             }
             else {
-                $start_from_user = $_POST['offset'];
+                $start_from_user = (int) $_POST['offset'];
                 $number_of_user = 2;
                 $research = new Research($search_data);
                 $connected_user_id = $_SESSION['user']->id();
                 $search_manager = new SearchManager();
                 $search_worked = $search_manager->searchMembers($research, $start_from_user, $number_of_user, $connected_user_id);
                 $results_number = $search_manager->countSearchedMembers($research, $connected_user_id);
+
                 if(!$search_worked || !$results_number){
                     $data['status'] = 'error';
                     $data['errors'] = ['research_do_not_return_anything'];
