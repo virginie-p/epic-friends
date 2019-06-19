@@ -58,7 +58,7 @@ class MailboxController extends Controller {
                 if(!empty($_POST['message'])) {
 
                     if($id ===  $_SESSION['user']->id()) {
-                        $errors[] = 'sender_equal_to_recipient';
+                        $errors[] = 'sender_equals_recipient';
                     }
 
                     if(preg_match('#^[[:blank:]\n]+$#', $_POST['message'])) {

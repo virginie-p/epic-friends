@@ -23,7 +23,7 @@ $('#send-message').on('click', function(e){
                     $('#send-new-message>.form-group').after('<div class="alert alert-danger messages col-12 p-1 mt-3" role="alert">Vous n\'avez pas renseigné de message à envoyer.</div>');
                 }
                 else if (error == 'sender_equals_recipient') {
-                    $('#send-message').before('<div class="alert alert-danger messages col-12 p-1 mt-3" role="alert">Vous ne pouvez pas vous envoyer de message à vous même !</div>')
+                    $('#send-new-message>.form-group').after('<div class="alert alert-danger messages col-12 p-1 mt-3" role="alert">Vous ne pouvez pas vous envoyer de message à vous même !</div>')
                 }
                 else if(error == 'user_not_found') {
                     $('#send-new-message>.form-group').after('<div class="alert alert-danger messages col-12 p-1 mt-3" role="alert">Vous ne pouvez pas envoyer de message à cet utilisateur.</div>');
