@@ -17,9 +17,12 @@
     <div class="container justify-content-center p-0 border" id="new-members">
         <div class="container-fluid py-5 text-center">
             <div class="row">
-              <h2 class="col-12 mb-5">Les derniers inscrits</h2>
+              <h2 class="col-12 mb-5">Les derniers inscrits {% if user.county() is not null %} de ta région {% endif %}</h2>
             </div>
             <div class="row justify-content-center ">
+                {% if new_users is empty %} 
+                    <p class="col-10 text-muted font-italic">Aucun inscrit n'habite votre région ! N'hésitez pas à recherchez d'autres membres d'autres régions grâce à notre moteur de recherche !</p> 
+                {% endif %}
                 {% for new_user in new_users %}
                     {% if new_user.id() != user.id() %}
                         <div class="card col-lg-3 col-md-4 p-0 mx-4 mb-4" >
