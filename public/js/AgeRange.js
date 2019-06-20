@@ -8,3 +8,6 @@ $(".js-range-slider").ionRangeSlider({
     grid: true,
     postfix: ' ans'
 });
+
+Parsedown();
+
