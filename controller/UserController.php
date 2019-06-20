@@ -28,7 +28,7 @@ class UserController extends Controller {
                 }
             }
 
-            if (!preg_match('#[0-9A-Za-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._-]{6,}#', $_POST['subscribe-username'])){
+            if (!preg_match('#^[0-9A-Za-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._-]{6,20}$#', $_POST['subscribe-username'])){
                 $errors[] = 'username_not_matching_regex' ;
             }
 
@@ -97,6 +97,12 @@ class UserController extends Controller {
                                 'X-Mailer: PHP/' . phpversion();
 
                     $message =  '<html><body>'. "\r\n" .
+                                '<img src="https://epic-friends.virginie-pereira.fr/public/images/logo.png" style="width:80px;height:80px"><span style="font-weight:bold">Epic Friends</span>'. "\r\n" .
+                                '<p> Bonjour ' . $new_user->username() . ' !</p>'."\r\n" .
+                                '<p> Vous êtes bien inscrit sur Epic Friends ! </p>'."\r\n" .
+                                '<p> N\'hésitez pas à vous connecter très souvent sur le site pour'."\r\n" .
+                                ' pouvoir discuter et vous faire de nouveaux amis ! :) </p>'."\r\n" .
+                                '<p> A très bientôt ! </p>' ."\r\n" .
                                 '</body></html>';
 
                     mail($new_user->email(), 'Votre inscription sur Epic Friends', $message, $headers);

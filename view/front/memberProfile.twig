@@ -1,8 +1,5 @@
 {% extends "template.twig" %}
 
-{% block meta %}
-    
-{% endblock meta %}
 
 {% block title %}
 <title>Profil de {{ member.username() }}</title>
@@ -17,7 +14,7 @@
 {% block content %}
 <section class="" id="member-profile">
     <div class="container p-0 text-center border mb-2">
-        <div id="profile-jumbotron" style="background-image: url('{{ BASE_URL }}public/images/profiles-banners/{{ member.profileBanner() }}'); background-size: cover;">
+        <div id="profile-jumbotron" {% if member.profileBanner() is not null %}style="background-image: url('{{ BASE_URL }}public/images/profiles-banners/{{ member.profileBanner() }}'); background-size: cover;" {% endif %}>
             <div class="jumbotron">
                 <div class="container chapter-title">
                     <h1 class="display-4">{{ member.username() }}, {{ member.getAge() }} ans</h1>

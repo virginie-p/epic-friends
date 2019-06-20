@@ -28,7 +28,7 @@ class ResearchController extends Controller {
             /** Check if the specified gender is correct */
             
             if(!empty($_POST['gender'])) {
-                $genders = ['Homme','Femme', 'Non-Binaire'];
+                $genders = ['Homme','Femme', 'Non-binaire'];
                 if(!in_array($_POST['gender'], $genders)) {
                     $errors[] = 'gender_not_existing';
                 } 
@@ -129,7 +129,6 @@ class ResearchController extends Controller {
                     echo json_encode($data);
                 }
             }
-
         }
         else {
             $user_manager = new UserManager();
@@ -139,3 +138,5 @@ class ResearchController extends Controller {
         }
     }
 }
+
+

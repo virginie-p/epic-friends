@@ -25,11 +25,11 @@ class User extends Entity implements \JsonSerializable {
 
     public function jsonSerialize() {
         return [
-            'id' => $this->id,
-            'username' => $this->username,
-            'age' => $this->getAge(),
-            'interests' => $this->interests,
-            'profile_picture' => $this->profile_picture
+            'id' => htmlspecialchars($this->id),
+            'username' =>  htmlspecialchars($this->username),
+            'age' =>  htmlspecialchars($this->getAge()),
+            'interests' =>  htmlspecialchars($this->interests),
+            'profile_picture' =>  htmlspecialchars($this->profile_picture)
         ];
     }
           

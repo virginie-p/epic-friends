@@ -12,6 +12,7 @@ $(function(){
     $('#datetimepicker5').datetimepicker({
         format: 'DD/MM/YYYY',
         locale: 'fr',
+        viewMode: 'years',
         minDate: minDate,
         maxDate: today_FR,
         date: birthdate,

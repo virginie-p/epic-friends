@@ -71,8 +71,7 @@ class SearchManager extends Manager {
        }
        catch (\PDOException $pdoE) {
            throw new \Exception($pdoE->getMessage());
-       }
-         
+       }    
     }
 
     public function countSearchedMembers($research, $connected_user_id){

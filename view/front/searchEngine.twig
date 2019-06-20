@@ -1,8 +1,5 @@
 {% extends "template.twig" %}
 
-{% block meta %}
-    
-{% endblock meta %}
 
 {% block title %}
 <title>Moteur de recherche - Epic Friends</title>
@@ -40,8 +37,11 @@
           </select>
         </div>          
         <div class="form-group col-lg-5" id="department">
-            <label for="county">Département : </label>
-            <input type="text" class="form-control form-control-sm" name="county" id="department-search" autocomplete="off">
+          <div>
+              <label for="county">Département : </label>
+              <input type="text" class="form-control form-control-sm" name="county" id="department-search" autocomplete="off">  
+          </div>
+          <small id="select-department-help" class="form-text text-muted">Trouvez un département en indiquant ses premières lettres.</small>
         </div>      
       </div>
       <div class="form-row align-items-center justify-content-around col-lg-12">

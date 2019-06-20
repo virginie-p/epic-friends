@@ -1,9 +1,5 @@
 {% extends "template.twig" %}
 
-{% block meta %}
-    
-{% endblock meta %}
-
 {% block title %}
 <title>Vos informations de profil</title>
 {% endblock title %}
@@ -39,6 +35,7 @@
             <div class="form-group" id="department">
                 <label for="county">Département : </label>
                 <input type="text" class="form-control form-control-sm" name="county" id="department-search" autocomplete="off" {% if user.county() is not null %}value = "{{ user.county() }}"{% endif %}>
+                <small id="select-department-help" class="form-text text-muted">Trouvez votre département en indiquant ses premières lettres.</small>
             </div>            
         </div>
         <div class="form-row align-items-center justify-content-start col-lg-12">

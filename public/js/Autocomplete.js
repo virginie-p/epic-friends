@@ -2,7 +2,7 @@ $(function() {
     function displaySuggestions(input, liste, suggestionsId, suggestionElt)  {
         $('#' + suggestionsId).empty();
 
-        $('body').off();
+        $('#department').off();
 
         let $departmentNames = [];
         
@@ -17,7 +17,7 @@ $(function() {
             });
         });
 
-        $('body').on('click', e => {
+        $('#department').on('click', e => {
             if ($(e.currentTarget).id !== suggestionsId) {
                 $('#' + suggestionsId).remove();
             }
@@ -40,7 +40,7 @@ $(function() {
         $.get(`https://geo.api.gouv.fr/departements?nom=${$('#department-search').val()}`, function(response) {
             if(response.length != 0) {
                 displaySuggestions(e.target, response, 'suggestions-list', 'suggestion');
-                $('#suggestions-list').css('top', ($('#department').outerHeight()));
+                $('#suggestions-list').css('top', ($('#department-search').parent().outerHeight()));
             }
             else {
                 $('#suggestions-list').remove();

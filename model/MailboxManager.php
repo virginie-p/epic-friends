@@ -17,7 +17,7 @@ class MailboxManager extends Manager {
                                   WHERE recipient_id = :user_id  AND messages.creation_date = (SELECT MAX(messages2.creation_date)
                                                                                                 FROM project_5_messages AS messages2
                                                                                                 WHERE messages2.sender_id = messages.sender_id)
-                                  UNION
+                                  UNION ALL
                                   SELECT recipient_id AS member_id, username, profile_picture, messages.creation_date
                                   FROM project_5_messages AS messages
                                   INNER JOIN project_5_users_parameters as users_parameters ON users_parameters.id = messages.recipient_id

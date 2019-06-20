@@ -34,7 +34,7 @@ $(function() {
                         $('input[name="password-confirmation"]').after('<div class="alert alert-danger mt-2 messages-subscription" role="alert">Les deux mots de passe renseignés ne sont pas identiques.</div>');
                     }
                     else if (element == 'username_not_matching_regex') {
-                        $('input[name="subscribe-username"]').after('<div class="alert alert-danger mt-2 messages-subscription" role="alert">Attention, votre login doit être composé de 6 caractères minimum (incluant points, tirets et caractères alphanumériques).</div>');
+                        $('input[name="subscribe-username"]').after('<div class="alert alert-danger mt-2 messages-subscription" role="alert">Attention, votre login doit être composé de 6 à 20 caractères (incluant points, tirets et caractères alphanumériques).</div>');
                     }
                     else if (element == 'username_already_used') {
                         $('input[name="subscribe-username"]').after('<div class="alert alert-danger mt-2 messages-subscription" role="alert">Ce login est déjà attribué à un autre utilisateur.</div>');
