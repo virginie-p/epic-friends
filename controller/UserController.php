@@ -59,7 +59,7 @@ class UserController extends Controller {
                 'username' => $_POST['subscribe-username'],
                 'password' => password_hash($_POST['subscribe-password'], PASSWORD_DEFAULT),
                 'email' => $_POST['email'],
-                'birthdate' => $birthdate->format('Y-m-d H:i:s')
+                'birthdate' => $birthdate->format('Y-m-d')
             );
 
             $image_input_name = 'profile-picture';

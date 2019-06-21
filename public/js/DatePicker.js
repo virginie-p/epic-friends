@@ -10,7 +10,7 @@ $(function(){
     let birthdate = $('#datetimepicker5').attr('data-value');
 
     $('#datetimepicker5').datetimepicker({
-        format: 'DD/MM/YYYY',
+        format: 'L',
         locale: 'fr',
         minDate: minDate,
         maxDate: today_FR,
