@@ -9,27 +9,21 @@ class MailboxManager extends Manager {
 
     public function getUsersContacted($user_id) {
         $db = $this->MySQLConnect();
-        $req = $db->prepare('SELECT member_id AS id, username, profile_picture, creation_date      
+        $req = $db->prepare('SELECT member_id AS id, username, profile_picture, MAX(creation_date) AS creation_date
                             FROM (SELECT sender_id AS member_id, username, profile_picture, messages.creation_date
                                   FROM project_5_messages AS messages
                                   INNER JOIN project_5_users_parameters AS users_parameters ON users_parameters.id = messages.sender_id
                                   INNER JOIN project_5_users_profiles AS users_profiles ON users_parameters.id = users_profiles.user_id
-                                  WHERE recipient_id = :user_id  AND messages.creation_date = (SELECT MAX(messages2.creation_date)
-                                                                                                FROM project_5_messages AS messages2
-                                                                                                WHERE messages2.sender_id = messages.sender_id)
+                                  WHERE recipient_id = :user_id
                                   UNION ALL
                                   SELECT recipient_id AS member_id, username, profile_picture, messages.creation_date
                                   FROM project_5_messages AS messages
                                   INNER JOIN project_5_users_parameters as users_parameters ON users_parameters.id = messages.recipient_id
                                   INNER JOIN project_5_users_profiles AS users_profiles ON users_parameters.id = users_profiles.user_id
-                                  WHERE sender_id = :user_id AND messages.creation_date = (SELECT MAX(messages2.creation_date)
-                                                                                            FROM project_5_messages AS messages2
-                                                                                            WHERE messages2.recipient_id = messages.recipient_id))
+                                  WHERE sender_id = :user_id)
                             AS members_contacted
-                            WHERE creation_date = (SELECT MAX(messages2.creation_date)
-                                                    FROM project_5_messages AS messages2
-                                                    WHERE (messages2.recipient_id = members_contacted.member_id OR messages2.sender_id = members_contacted.member_id))
-                            ORDER BY members_contacted.creation_date DESC');
+                            GROUP BY id
+                            ORDER BY creation_date DESC');
 
         $req->execute(['user_id' => $user_id]);
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'App\Entity\User');
@@ -101,6 +95,8 @@ class MailboxManager extends Manager {
             'recipient_id'=> $mail->recipientId(),
             'message' => $mail->message()
         ]);
+        // $req->debugDumpParams();
+        // die();
 
         return $result;
     }
