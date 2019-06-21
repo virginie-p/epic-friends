@@ -233,6 +233,7 @@ class UserController extends Controller {
     }
 
     public function modifyProfile($id) {
+        
 
         if(isset($_SESSION['user'])) {
             $user_manager = new UserManager();
@@ -274,6 +275,9 @@ class UserController extends Controller {
                         $profile_data['birthdate'] = $birthdate->format('Y-m-d');
                     }
                 }
+                else {
+                    $profile_data['birthdate'] = $user->birthdate();
+                }
                 
                 /** Check if specified county is correct */
                 if(!empty($_POST['county'])) {
@@ -311,6 +315,9 @@ class UserController extends Controller {
                         }
                     }
                 }
+                else {
+                    $profile_data['interests'] = [];
+                }
                 
 
                 /**Check if favorite quote is not just spaces */
@@ -326,6 +333,9 @@ class UserController extends Controller {
                         $profile_data['favorite_citation'] =  $_POST['favorite-citation'];
                     }
                 }
+                else {
+                    $profile_data['favorite_citation'] = '';
+                }
 
                 /**Check if favorite character is not just spaces */
                 if(!empty($_POST['identified-as'])) {
@@ -339,6 +349,9 @@ class UserController extends Controller {
                     else {
                         $profile_data['identified_as'] =  $_POST['identified-as'];
                     }
+                }
+                else {
+                    $profile_data['identified_as'] = '';
                 }
 
                 /**Check if profile picture is ok */
