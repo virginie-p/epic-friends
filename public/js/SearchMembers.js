@@ -75,7 +75,7 @@ $(function(){
                         <div class="card-body">
                             <h5 class="card-title">${result.username}</h5>
                             <p class="card-text">${result.age} ans</p>
-                            <a class="btn btn-primary" href="${baseUrl}member/${result.id}" role="button">Voir le profil</a>
+                            <a class="btn btn-primary" href="${baseUrl}/member/${result.id}" role="button">Voir le profil</a>
                         </div>
                     </div>`);      
             });

@@ -195,7 +195,7 @@ class UserManager extends Manager {
                             LEFT JOIN project_5_users_profiles AS users_profiles ON users_parameters.id = users_profiles.user_id
                             LEFT JOIN project_5_users_interests AS users_interests ON users_parameters.id = users_interests.user_id
                             LEFT JOIN project_5_interests AS interests_names ON users_interests.interest_id = interests_names.id
-                            WHERE users_parameters.id = ?
+                            WHERE users_parameters.id = ? 
                             GROUP BY (users_parameters.id)');
         $req->execute(array($id));
 
@@ -327,6 +327,7 @@ class UserManager extends Manager {
                            FROM project_5_users_parameters AS users_parameters
                            INNER JOIN project_5_users_profiles AS users_profiles
                            ON users_parameters.id = users_profiles.user_id
+                           WHERE user_type_id = 5
                            ORDER BY RAND()
                            LIMIT 4');
 
