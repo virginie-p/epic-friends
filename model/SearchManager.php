@@ -19,7 +19,7 @@ class SearchManager extends Manager {
                     LEFT JOIN project_5_users_profiles AS users_profiles ON users_parameters.id = users_profiles.user_id
                     LEFT JOIN project_5_users_interests AS users_interests ON users_parameters.id = users_interests.user_id
                     LEFT JOIN project_5_interests AS interests_names ON users_interests.interest_id = interests_names.id
-                    WHERE (users_parameters.id != :connected_user_id AND (birthdate BETWEEN :start_birthdate AND :end_birthdate)';
+                    WHERE (users_parameters.id != :connected_user_id AND (birthdate BETWEEN :start_birthdate AND :end_birthdate) AND user_type_id = 5';
 
             if(!is_null($research->gender())) {
                 $query .= ' AND gender = :gender';
@@ -80,7 +80,7 @@ class SearchManager extends Manager {
                 FROM project_5_users_parameters AS users_parameters
                 LEFT JOIN project_5_users_profiles AS users_profiles ON users_parameters.id = users_profiles.user_id
                 LEFT JOIN project_5_users_interests AS users_interests ON users_parameters.id = users_interests.user_id
-                WHERE users_parameters.id != :connected_user_id AND (birthdate BETWEEN :start_birthdate AND :end_birthdate)';
+                WHERE users_parameters.id != :connected_user_id AND (birthdate BETWEEN :start_birthdate AND :end_birthdate) AND user_type_id = 5';
         
         $execute = ['connected_user_id' => $connected_user_id, 
                     'start_birthdate'=> $research->maxBirthday(),

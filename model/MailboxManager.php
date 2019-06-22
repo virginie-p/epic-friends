@@ -14,13 +14,13 @@ class MailboxManager extends Manager {
                                   FROM project_5_messages AS messages
                                   INNER JOIN project_5_users_parameters AS users_parameters ON users_parameters.id = messages.sender_id
                                   INNER JOIN project_5_users_profiles AS users_profiles ON users_parameters.id = users_profiles.user_id
-                                  WHERE recipient_id = :user_id
+                                  WHERE recipient_id = :user_id AND user_type_id = 5
                                   UNION ALL
                                   SELECT recipient_id AS member_id, username, profile_picture, messages.creation_date
                                   FROM project_5_messages AS messages
                                   INNER JOIN project_5_users_parameters as users_parameters ON users_parameters.id = messages.recipient_id
                                   INNER JOIN project_5_users_profiles AS users_profiles ON users_parameters.id = users_profiles.user_id
-                                  WHERE sender_id = :user_id)
+                                  WHERE sender_id = :user_id AND user_type_id = 5)
                             AS members_contacted
                             GROUP BY id
                             ORDER BY creation_date DESC');
@@ -46,7 +46,7 @@ class MailboxManager extends Manager {
                             FROM project_5_messages AS messages
                             INNER JOIN project_5_users_parameters AS users_parameters ON messages.sender_id = users_parameters.id
                             INNER JOIN project_5_users_profiles AS users_profiles ON messages.sender_id = users_profiles.user_id
-                            WHERE recipient_id = :user_id AND opened_by_recipient = 0 AND messages.creation_date = (SELECT MAX(messages2.creation_date)
+                            WHERE recipient_id = :user_id AND opened_by_recipient = 0 AND user_type_id = 5 AND messages.creation_date = (SELECT MAX(messages2.creation_date)
                                                                                                                     FROM project_5_messages AS messages2
                                                                                                                     WHERE messages2.sender_id = messages.sender_id)
                             ORDER BY messages.id DESC');
@@ -59,7 +59,7 @@ class MailboxManager extends Manager {
     public function getUserContactedMessages($contacted_user_id, $user_id) {
         $db = $this->MySQLConnect();
         $req = $db->prepare('SELECT * FROM project_5_messages 
-                            WHERE (sender_id = :contacted_user_id AND recipient_id = :user_id) OR (sender_id = :user_id AND recipient_id = :contacted_user_id) 
+                            WHERE (sender_id = :contacted_user_id AND recipient_id = :user_id) OR (sender_id = :user_id AND recipient_id = :contacted_user_id)
                             ORDER BY creation_date ASC');
         $req->execute([
             'contacted_user_id'=> $contacted_user_id,
