@@ -149,4 +149,14 @@ $router->addRoute('GET|POST', 'edit-interest/:id', function($id){
     $admin_controller->editInterest($id);
 });
 
+$router->addRoute('GET', 'mentions-legales', function(){
+    $controller = new Controller();
+    $controller->showLegalNotice();
+});
+
+$router->addRoute('GET', 'politique-de-confidentialite', function(){
+    $controller = new Controller();
+    $controller->showPrivacyPolicy();
+});
+
 $router->run();

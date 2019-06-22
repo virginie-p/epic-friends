@@ -62,4 +62,13 @@ class Controller {
     public function display404() {
         echo $this->twig->render('error404.twig');
     }
+
+    public function showLegalNotice() {
+
+        echo $this->twig->render('legalNotice.twig');
+    }
+
+    public function showPrivacyPolicy() {
+        echo $this->twig->render('privacyPolicy.twig');
+    }
 }
