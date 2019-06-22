@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Model\MailboxManager;
 use App\Model\UserManager;
 use App\Entity\Mail;
+use HtmlSanitizer\Sanitizer;
 
 
 class MailboxController extends Controller {
@@ -55,23 +56,26 @@ class MailboxController extends Controller {
                 $message_data['sender_id'] = $_SESSION['user']->id();
 
                 /**Check if message is correct */
-                if(!empty($_POST['message'])) {
+                $sanitizer = Sanitizer::create(['extensions' => ['basic']]);
+                $safeMessage = $sanitizer->sanitize($_POST['message']);
+
+                if(!empty($safeMessage)) {
 
                     if($id ===  $_SESSION['user']->id()) {
                         $errors[] = 'sender_equals_recipient';
                     }
 
-                    if(preg_match('#^[[:blank:]\n]+$#', $_POST['message'])) {
+                    if(preg_match('#^[[:blank:]\n]+$#', $safeMessage)) {
                         $errors[] = 'message_just_blanks';
                     }
 
-                    if(strip_tags(strlen($_POST['message'])) > 2000) {
+                    if(strip_tags(strlen($safeMessage)) > 2000) {
                         $errors[] = 'message_too_long';
                         
                     }
 
                     if (!in_array('message_juste_blanks', $errors) || !in_array('message_too_long', $errors)) {
-                        $message_data['message'] =  $_POST['message'];
+                        $message_data['message'] =  $safeMessage;
                     }
                 }
                 else {
